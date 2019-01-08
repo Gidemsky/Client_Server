@@ -5,8 +5,15 @@
 #ifndef CLIENT_SERVER_SOLVERSEARCHER_H
 #define CLIENT_SERVER_SOLVERSEARCHER_H
 
+#include "ISearcher.h"
+#include "Solver.h"
 
-class SolverSearcher {
+template <class T>
+class SolverSearcher : public Solver<class Problem, class Solution> {
+private:
+    ISearcher<T> s;
+
+public:
 
 };
 

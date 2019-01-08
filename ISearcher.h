@@ -9,7 +9,7 @@
 #include "State.h"
 
 template <class T>
-class Searcher {
+class ISearcher {
 public:
     virtual std::vector<State<T>*> search (Searchable<T>* searchable) = 0;
 
