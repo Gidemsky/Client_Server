@@ -17,6 +17,10 @@ public:
      fstream file;
      map<string, string> cache;
 
+     void write(Problem problem , Solution solution){
+         string s =p.to_string();
+     }
+
 };
 
 #endif //CLIENT_SERVER_FILECHACEMANAGER_H

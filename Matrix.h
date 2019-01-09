@@ -9,6 +9,7 @@
 #include <vector>
 
 class Matrix {
+    int row,col;
     using MatrixVec = std::vector<std::vector<double>> ;
     MatrixVec _data ;
 
@@ -26,6 +27,14 @@ public:
     double operator[](const Point& p) const {
         return _data[p.first][p.second];
     }
+
+    int getRow(){
+        return this->row;
+    }
+
+    int getCol(){
+        return this->col;
+    }
 };
 
 class SearchableMatrix : public Searchable<std::pair<int, int>>
@@ -34,6 +43,7 @@ class SearchableMatrix : public Searchable<std::pair<int, int>>
     Matrix matrix;
     Point entry_point;
     Point exit_point;
+    int row_lenght, col_lenght;
 public:
     State<Point> getInitialState() const override {
         State<Point> initial_state;
@@ -50,6 +60,10 @@ public:
         return exit_point;
     }
     virtual std::vector<State<Point>> getAllPossibleStates(State<Point>) const {}
+
+    int size(){
+        return (matrix.getRow()*matrix.getCol());
+    }
 };
 
 #endif //CLIENT_SERVER_MATRRIX_H
