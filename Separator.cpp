@@ -2,7 +2,7 @@
 // Created by gideon on 08/01/19.
 //
 
-#include "Separater.h"
+#include "Separator.h"
 
 #include <algorithm>
 #include <list>

@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Separater.h"
+#include "Separator.h"
 
 #define FILE_NAME_INDEX 1
 
