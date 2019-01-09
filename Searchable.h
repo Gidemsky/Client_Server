@@ -12,9 +12,10 @@
 template <class T>
 class Searchable {
 public:
-    virtual State<T>* getInitialState() = 0;
-    virtual State<T>* getGoalState() = 0;
-    virtual std::vector<State<T>*> getAllPossibleState() = 0;
+    virtual State<T> getInitialState() const = 0;
+    virtual T getInitialNode() const = 0;
+    virtual T getGoalNode() const = 0;
+    virtual std::vector<State<T>> getAllPossibleStates(State<T> ) const = 0;
 };
 
 #endif //CLIENT_SERVER_ISEARCHABLE_H

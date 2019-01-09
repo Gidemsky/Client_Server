@@ -8,12 +8,12 @@
 #include "Searchable.h"
 #include "State.h"
 
-template <class T>
+template <class Node>
 class ISearcher {
 public:
-    virtual std::vector<State<T>*> search (Searchable<T>* searchable) = 0;
+    virtual std::vector<Node> search (Searchable<Node>* searchable) = 0;
 
-    virtual int getNumberOfNudesEvaluated() = 0;
+    virtual int getNumberOfNodesEvaluated() = 0;
 };
 
 #endif //CLIENT_SERVER_SEARCHER_H
