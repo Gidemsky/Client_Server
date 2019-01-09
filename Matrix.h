@@ -54,7 +54,4 @@ public:
     virtual std::vector<State<Point>> getAllPossibleStates(State<Point>) const {}
 };
 
-
 #endif //CLIENT_SERVER_MATRRIX_H
-
-

@@ -7,15 +7,14 @@
 
 #include "State.h"
 #include <vector>
-#include <set>
 
-template <class T>
+template <class Node>
 class Searchable {
 public:
-    virtual State<T> getInitialState() const = 0;
-    virtual T getInitialNode() const = 0;
-    virtual T getGoalNode() const = 0;
-    virtual std::vector<State<T>> getAllPossibleStates(State<T> ) const = 0;
+    virtual State<Node> getInitialState() const = 0;
+    virtual Node getInitialNode() const = 0;
+    virtual Node getGoalNode() const = 0;
+    virtual std::vector<State<Node>> getAllPossibleStates(State<Node>) const = 0;
 };
 
 #endif //CLIENT_SERVER_ISEARCHABLE_H

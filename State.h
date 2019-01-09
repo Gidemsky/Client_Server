@@ -66,6 +66,4 @@ void State<T>::setCome_from(const State<T>* come_from) {
     State::come_from = come_from;
 }
 
-
-
 #endif //CLIENT_SERVER_STATE_H

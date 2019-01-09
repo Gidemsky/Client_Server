@@ -10,7 +10,9 @@
 #include <unistd.h>
 
 template<class Node>
-class BFS : public ISearcher<Node>{
+class BFS : public ISearcher<Node> {
+    Searchable<Node>* searchable;
+
 public:
     std::vector<Node> search (Searchable<Node>* searchable) override
     {
