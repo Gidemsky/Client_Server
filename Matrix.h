@@ -31,7 +31,7 @@ private:
 };
 
 class SearchableMatrix : public Searchable<std::pair<int, int>>
-{//
+{////
     using Point = std::pair<int, int>;
     Matrix matrix;
     Point entry_point;
