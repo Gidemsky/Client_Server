@@ -17,5 +17,4 @@ public:
 
 };
 
-
 #endif //CLIENT_SERVER_SOLVERSEARCHER_H
