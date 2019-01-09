@@ -6,8 +6,13 @@
 #define CLIENT_SERVER_MYPRALLELSERVER_H
 
 
-class MyPrallelServer {
+#include "Server.h"
 
+class MyPrallelServer : public Server{
+private:
+
+public:
+    void *readFromServer(void *pparams);
 };
 
 

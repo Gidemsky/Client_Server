@@ -17,6 +17,7 @@ public:
     std::vector<Node> search (Searchable<Node>* searchable) override
     {
         searchable->getInitialState();
+        searchable->
     }
 
     int getNumberOfNodesEvaluated() override

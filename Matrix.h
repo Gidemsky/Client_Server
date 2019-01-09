@@ -9,8 +9,9 @@
 #include <vector>
 
 class Matrix {
-
     using MatrixVec = std::vector<std::vector<double>> ;
+    MatrixVec _data ;
+
 public:
     using Point = std::pair<int, int>;
 
@@ -25,9 +26,6 @@ public:
     double operator[](const Point& p) const {
         return _data[p.first][p.second];
     }
-
-private:
-    MatrixVec _data ;
 };
 
 class SearchableMatrix : public Searchable<std::pair<int, int>>
