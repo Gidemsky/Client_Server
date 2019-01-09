@@ -43,18 +43,3 @@ void Separator::valueParser(string& strData, string strSpliter) {
         this->mat_assigned_data.push_back(line_vals);
     }
 }
-
-//vector<vector<double>> Separator::stringConverter(vector<string> vec_line, string split) {
-//    size_t pos = 0;
-//    vector<double> dataTaken;
-//    while (line.at(0) == ' ') {
-//        line.erase(0, 1);
-//    }
-//    //run the loop as far as it has space bars
-//    while ((pos = line.find(split)) != string::npos) {
-//        dataTaken.push_back(stod(line.substr(0, pos) + SIM_INPUT_SPLIT));
-//        line.erase(0, pos + split.length());
-//    }
-//    dataTaken.push_back(stod(line.substr(0, pos) + SIM_INPUT_SPLIT));
-//    return dataTaken;
-//}

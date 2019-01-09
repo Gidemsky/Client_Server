@@ -69,13 +69,13 @@ void *MySerialServer::start(void *myParams) {
     //!=stop
     while (true) {
         listen(sock, 5);
-
-        if ((new_socket = accept(sock, (struct sockaddr *) &address,
-                                 (socklen_t *) &addrlen)) < 0) {
+        if ((new_socket = accept(sock,
+                (struct sockaddr *) &address,
+                        (socklen_t *) &addrlen)) < 0) {
             perror("accept");
             exit(EXIT_FAILURE);
         }
-        my_data->ch->handleClient(new_socket);
+        my_data->ch->clientHandler(new_socket);
     }
     close(sock);
 }

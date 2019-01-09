@@ -7,10 +7,6 @@
 
 #include "ClientHandler.h"
 
-//namespace server_side{
-//    class Server;
-//}
-
 class Server{
 public:
     virtual void open(int port, ClientHandler* c); // getting port to listen, open the server and wait for clients

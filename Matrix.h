@@ -16,8 +16,10 @@ class Matrix {
 public:
     using Point = std::pair<int, int>;
 
-    Matrix(const MatrixVec& vec)    {
+    explicit Matrix(const MatrixVec& vec) {//added  "explicit" check what
         this->_data = vec;
+        this->row = static_cast<int>(_data.size());
+        this->col = static_cast<int>(_data.front().size());
     }
 
     double& operator[](const Point& p)  {
