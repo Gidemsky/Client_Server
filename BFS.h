@@ -9,20 +9,6 @@
 #include <sys/socket.h>
 #include <unistd.h>
 
-struct Server
-{
-    char* read();
-};
-
-struct CLientHandler
-{
-    char input[256];
-    void handle(int s)
-    {
-        read(s, input, 255);
-    }
-};
-
 template<class Node>
 class BFS : public ISearcher<Node>{
 public:
