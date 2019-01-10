@@ -16,8 +16,8 @@ private:
 public:
     State();
     State(Node state, double cost){
-        this->state = state;
-        this->visited = false;
+        this->node = state;
+        this->is_visited = false;
         this->cost = cost;
     }
 

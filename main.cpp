@@ -6,16 +6,15 @@
 #include <iostream>
 #include <vector>
 #include "MySerialServer.h"
-//#include "StringReverseCH.h"
+#include "StringReverseCH.h"
 #include "FileCacheManager.h"
-//#include "MaxtrixBuilder.h"
 
 int main() {
-//    MySerialServer s = MySerialServer();
-//    CacheManager<Stringable,Stringable>* cacheManager=new FileCacheManager();
-//    ClientHandler *c = new StringReverseCH(cacheManager);
-//    s.open(5400, c);
-//    pthread_exit(NULL);
+    //MySerialServer s = MySerialServer();
+    //ICacheManager<string,string>* cacheManager=new FileCacheManager();//TODO: check stringable interfae
+    //ClientHandler *c = new StringReverseCH(cacheManager);
+    //s.open(5400, c);
+    //pthread_exit(NULL);
     vector<vector<double>> v;
     vector<double> myV;
     int j = 0;
@@ -25,9 +24,9 @@ int main() {
         }
         v.push_back(myV);
     }
-//    Point start = Point(0, 0);
-//    Point end = Point(2, 2);
-//    Separator builder = MatrixBuilder();
-//    SearchableMatrix searchamat= builder.create(v, start, end);
+    //Point start = Point(0, 0);
+    //Point end = Point(2, 2);
+    //Separator builder = MatrixBuilder();
+    //SearchableMatrix searchamat= builder.create(v, start, end);
     return 0;
 }

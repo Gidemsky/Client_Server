@@ -12,7 +12,7 @@ class MySerialServer: public Server{
     int port;
     ClientHandler* clientHandler;
 public:
-    void open(int port, ClientHandler* clientHandler) override;
+    void open(int port, ClientHandler* clientHandler);
 
     bool stop() override;
 

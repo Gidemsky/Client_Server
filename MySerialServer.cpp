@@ -3,8 +3,6 @@
 //
 
 #include "MySerialServer.h"
-
-#include "MySerialServer.h"
 #include <iostream>
 #include <sys/types.h>
 #include <algorithm>
@@ -33,7 +31,7 @@ void MySerialServer::open(int port, ClientHandler* clientHandler) {
     this->clientHandler = clientHandler;
     pthread_t thread;
     int rc;
-    int server_fd, new_socket, valread;
+    int server_fd, new_socket;
     struct sockaddr_in address;
     server_fd = socket(AF_INET, SOCK_STREAM, 0);
     address.sin_family = AF_INET;
@@ -55,7 +53,7 @@ void MySerialServer::open(int port, ClientHandler* clientHandler) {
 
 
 bool MySerialServer::stop() {
-
+    cout<<"lalal"<<endl;
 }
 
 void *MySerialServer::start(void *myParams) {
@@ -75,7 +73,7 @@ void *MySerialServer::start(void *myParams) {
             perror("accept");
             exit(EXIT_FAILURE);
         }
-        my_data->ch->clientHandler(new_socket);
+        //my_data->ch->clientHandler(new_socket);
     }
     close(sock);
 }

@@ -9,9 +9,9 @@
 
 class Server{
 public:
-    //virtual void open(int port, ClientHandler* c); // getting port to listen, open the server and wait for clients
-    virtual bool stop(); // close the server
-    virtual void start();
+    virtual void open(int port, ClientHandler* c) = 0; // getting port to listen, open the server and wait for clients
+    virtual bool stop() = 0; // close the server
+    virtual void start() = 0;
 };
 
 #endif //CLIENT_SERVER_SERVER_H

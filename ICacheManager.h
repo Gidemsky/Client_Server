@@ -8,9 +8,14 @@
 template <class Problem, class Solution>
 class ICacheManager {
 public:
-    virtual Solution getSolution(Problem problem);
-    virtual void saveSolution(Problem problem, Solution solution);
-    virtual bool isSolutionExist(Problem problem);
+//    virtual Solution getSolution(Problem problem);
+//    virtual void saveSolution(Problem problem, Solution solution);
+//    virtual bool isSolutionExist(Problem problem);
+    virtual void save(Problem* problem,Solution* soulution) = 0;
+
+    virtual bool isProblemExist(Problem* problem)=0;
+
+    virtual Solution* search(Problem* problem) = 0;
 };
 
 #endif //CLIENT_SERVER_CACHEMANAGER_H

@@ -99,7 +99,7 @@ public:
         if (x_pos > 0) {
             exam_possible_point = Point(x_pos - 1,y_pos);
             if(matrix[exam_possible_point]>=0){
-                pos_states.emplace_back(new State<Point>(exam_possible_point,this->matrix[exam_possible_point]));
+                //pos_states.emplace_back(new State<Point>(exam_possible_point,this->matrix[exam_possible_point]));
             }
         }
 
@@ -107,7 +107,7 @@ public:
         if (x_pos < last_x_pos) {
             exam_possible_point = Point(x_pos + 1,y_pos);
             if(matrix[exam_possible_point]>=0){
-                pos_states.emplace_back(new State<Point>(exam_possible_point,this->matrix[exam_possible_point]));
+                //pos_states.emplace_back(new State<Point>(exam_possible_point,this->matrix[exam_possible_point]));
             }
         }
 
@@ -115,7 +115,7 @@ public:
         if (y_pos > 0) {
             exam_possible_point = Point(x_pos,y_pos - 1);
             if(matrix[exam_possible_point]>=0){
-                pos_states.emplace_back(new State<Point>(exam_possible_point,this->matrix[exam_possible_point]));
+                //pos_states.emplace_back(new State<Point>(exam_possible_point,this->matrix[exam_possible_point]));
             }
         }
 
@@ -123,7 +123,7 @@ public:
         if (y_pos < last_y_pos) {
             exam_possible_point = Point(x_pos,y_pos + 1);
             if(matrix[exam_possible_point]>=0){
-                pos_states.emplace_back(new State<Point>(exam_possible_point,this->matrix[exam_possible_point]));
+                //pos_states.emplace_back(new State<Point>(exam_possible_point,this->matrix[exam_possible_point]));
             }
         }
         return pos_states;

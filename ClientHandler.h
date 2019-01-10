@@ -6,9 +6,9 @@
 #define CLIENT_SERVER_ICLIENTHANDLER_H
 
 #include "Matrix.h"
-//void foo(){
-//    Matrix::Point p = Matrix::Point(3,4);
-//    matrix[p];
-//    matrix[Matrix::Point(3,4)];
-//}
+#include <iostream>
+class ClientHandler {
+public:
+        virtual void handleClient(int port) = 0;
+};
 #endif //CLIENT_SERVER_ICLIENTHANDLER_H
