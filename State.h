@@ -11,9 +11,16 @@ private:
     Node node;
     double cost;    // price of the node
     const State<Node>* come_from;
-    //string str;
+    bool is_visited;
 
 public:
+    State();
+    State(Node state, double cost){
+        this->state = state;
+        this->visited = false;
+        this->cost = cost;
+    }
+
     bool operator==(State<Node> s);
 
     //getter and setters

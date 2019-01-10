@@ -4,12 +4,14 @@
 
 #include <unistd.h>
 #include <string>
+#include <bits/socket.h>
+#include <sys/socket.h>
 #include "MyPrallelServer.h"
-
-struct Server
-{
-    char* read();
-};
+//
+//struct Server
+//{
+//    char* read();
+//};
 
 struct ClientHandler
 {
@@ -65,7 +67,7 @@ void *MyPrallelServer::readFromServer(void *pparams) {
  * in order to read from the server.
  * @return
  */
-void MyPrallelServer::open(int port, ClientHandler c) {
+void MyPrallelServer::open(int port, ClientHandler* c) {
     pthread_t pthread;
     int sockfd, newsockfd, clilen;
     struct sockaddr_in serv_addr{}, cli_addr{};

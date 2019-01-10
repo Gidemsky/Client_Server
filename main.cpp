@@ -3,25 +3,31 @@
 
 #define FILE_NAME_INDEX 1
 
-/**
- * Run the program
- * @param file_name is the file name to read from.
- */
-void run(string file_name) {
-    Separater *separater = new Separater(file_name);
-    //string lexer_data = separater->getFlightUserInput();
-    //Interpreter *parser = new Interpreter(lexer_data);
-}
+#include <iostream>
+#include <vector>
+#include "MySerialServer.h"
+//#include "StringReverseCH.h"
+#include "FileCacheManager.h"
+//#include "MaxtrixBuilder.h"
 
-/**
- * Main
- * @param argc
- * @param argv includes the file name of the script.
- */
-int main(int argc, char *argv[]) {
-    // notify that we start to run the program
-    run(argv[FILE_NAME_INDEX]);
-    // delete allocated memory from the data
-    // close the pthread
-    //pthread_exit(nullptr);
+int main() {
+//    MySerialServer s = MySerialServer();
+//    CacheManager<Stringable,Stringable>* cacheManager=new FileCacheManager();
+//    ClientHandler *c = new StringReverseCH(cacheManager);
+//    s.open(5400, c);
+//    pthread_exit(NULL);
+    vector<vector<double>> v;
+    vector<double> myV;
+    int j = 0;
+    for (double i = 0; i < 3; ++i) {
+        for (j; j < 3; ++j) {
+            myV.push_back(j);
+        }
+        v.push_back(myV);
+    }
+//    Point start = Point(0, 0);
+//    Point end = Point(2, 2);
+//    Separator builder = MatrixBuilder();
+//    SearchableMatrix searchamat= builder.create(v, start, end);
+    return 0;
 }

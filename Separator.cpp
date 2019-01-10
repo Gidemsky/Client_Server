@@ -8,8 +8,6 @@
 #include <list>
 
 #define VAL_SPLITER ","
-#define FILE_SPACE " "
-#define CMD_SPLIT "#"
 #define LINE_SPLITER "|"
 
 /**
@@ -43,3 +41,4 @@ void Separator::valueParser(string& strData, string strSpliter) {
         this->mat_assigned_data.push_back(line_vals);
     }
 }
+
