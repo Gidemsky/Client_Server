@@ -17,6 +17,11 @@ class BFS : public ISearcher<Node> {
     Searchable<Node>* searchable;
 
 public:
+    /**
+     * The algorithm
+     * @param searchable
+     * @return
+     */
     std::vector<Node> search (Searchable<Node>* searchable) override
     {
         // get the initial node
