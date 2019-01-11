@@ -22,7 +22,7 @@ public:
     FileCacheManager(){
         loadToMap();
     }
-    void save(string problem,string solution){
+    void save(string problem, string solution){
         string str_problem = problem;
         string str_solution = solution;
         //if problem exists
@@ -70,6 +70,7 @@ public:
     void saveMap(){
 
     }
+
     void saveObjectInFile(string problem,string solution){
         this->file << problem << endl;
         this->file << END_OF_PROBLEM << endl;

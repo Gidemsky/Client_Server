@@ -23,7 +23,6 @@ public:
 
     bool operator==(State<Node> s);
 
-    //getter and setters
     Node getState() const;
 
     void setState(Node state);
@@ -32,9 +31,13 @@ public:
 
     void setCost(double cost);
 
-    const State<Node>* getCome_from() const;
+    const State<Node>* getComeFrom() const;
 
-    void setCome_from(const State<Node>* come_from);
+    void setComeFrom(const State<Node> *come_from);
+
+    bool isVisited() const;
+
+    void setVisited(bool b);
 };
 
 template<class T>
@@ -64,13 +67,23 @@ void State<T>::setCost(double cost) {
 }
 
 template<class T>
-const State<T>* State<T>::getCome_from() const {
+const State<T>* State<T>::getComeFrom() const {
     return come_from;
 }
 
 template<class T>
-void State<T>::setCome_from(const State<T>* come_from) {
+void State<T>::setComeFrom(const State<T> *come_from) {
     State::come_from = come_from;
+}
+
+template<class Node>
+void State<Node>::setVisited(bool b) {
+    this->is_visited = b;
+}
+
+template<class Node>
+bool State<Node>::isVisited() const {
+    return this->is_visited;
 }
 
 #endif //CLIENT_SERVER_STATE_H

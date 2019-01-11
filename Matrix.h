@@ -71,7 +71,7 @@ public:
     }
     State<Point> getInitialState() const override {
         State<Point> initial_state;
-        initial_state.setCome_from(nullptr);
+        initial_state.setComeFrom(nullptr);
         initial_state.setCost(matrix[entry_point]);
         initial_state.setState(entry_point);
     }
