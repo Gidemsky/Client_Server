@@ -29,21 +29,21 @@ public:
         State<Node> node = searchable->getInitialState();
         // create a queue for the algorithm
         list<State<Node>> queue;
-        vector <State<Node>> possible_states;
+        vector<State<Node>> possible_states;
         // mark the current node as visited
         node.setVisited(true);
         // enqueue the node
         queue.push_back(node);
-
         while(!queue.empty())
         {
             // Dequeue a vertex from queue
             node = queue.front();
             queue.pop_front();
-            possible_states = searchable->getAllPossibleStates(node);
+            possible_states = searchable->getInitialState();
             for (int i = 0; i < possible_states.size(); i++)
             {
-                if (possible_states[i]
+                State<Node> temp = possible_states[i];//temporary plaster
+                if (temp.getCost()
             }
         }
     }

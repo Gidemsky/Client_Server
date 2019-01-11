@@ -25,7 +25,9 @@ public:
 
     Node getState() const;
 
-    void setState(Node state);
+    void setState(Node state){
+        this->node = state;
+    }
 
     double getCost() const;
 
@@ -51,10 +53,10 @@ T State<T>::getState() const {
     return node;
 }
 
-template<class T>
-void State<T>::setState(T state) {
-    this->node = state;
-}
+//template<class T>
+//void State<T>::setState(T state) {
+//    this->node = state;
+//}
 
 template<class T>
 double State<T>::getCost() const {
