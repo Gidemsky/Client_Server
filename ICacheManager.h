@@ -5,12 +5,9 @@
 #ifndef CLIENT_SERVER_CACHEMANAGER_H
 #define CLIENT_SERVER_CACHEMANAGER_H
 
-template <class Problem, class Solution>
+template<class Problem, class Solution>
 class ICacheManager {
 public:
-//    virtual Solution getSolution(Problem problem);
-//    virtual void saveSolution(Problem problem, Solution solution);
-//    virtual bool isSolutionExist(Problem problem);
     virtual void save(Problem* problem,Solution* soulution) = 0;
 
     virtual bool isProblemExist(Problem* problem)=0;

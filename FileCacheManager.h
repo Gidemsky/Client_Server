@@ -5,43 +5,43 @@
 #ifndef CLIENT_SERVER_FILECHACEMANAGER_H
 #define CLIENT_SERVER_FILECHACEMANAGER_H
 
-#include "ICacheManager.h"
-#include <fstream>
 #include <map>
+#include <fstream>
+#include "ICacheManager.h"
+#include "Stringable.h"
+#include "StringableMatrix.h"
 
 #define END_OF_PROBLEM "$"
 #define END_OF_SOLUTION "@"
 
-using namespace std;
-
-template <class Problem, class Solution>
-class FileCacheManager : public ICacheManager<Problem, Solution> {
-    map<string,string> myData;
+class FileCacheManager: public ICacheManager<Stringable,Stringable>{
+    map<string,string> data;
     fstream file;
 public:
     FileCacheManager(){
         loadToMap();
     }
-    void save(string problem, string solution){
-        string str_problem = problem;
-        string str_solution = solution;
+
+    void save(Stringable* problem,Stringable* solution) override{
+        string str_problem = problem->makeString();
+        string str_solution = solution->makeString();
         //if problem exists
-        if (this->myData.count(str_problem)) {
-            this->myData.at(str_problem) = str_solution;
+        if (this->data.count(str_problem)) {
+            this->data.at(str_problem) = str_solution;
         } else
-            this->myData.insert(pair<string, string>(str_problem, str_solution));
+            this->data.insert(pair<string, string>(str_problem, str_solution));
     }
 
-    bool isProblemExist(string problem){
-        string str_problem = problem;
-        return this->myData.count(str_problem) != 0;
+    bool isProblemExist(Stringable* problem) override{
+        string str_problem = problem->makeString();
+        return this->data.count(str_problem) != 0;
     }
 
-    string search(string problem) override{
+    Stringable* search(Stringable* problem) override{
         if (isProblemExist(problem)) {
-            return problem;
+            return new StringableMatrix(this->data.at(problem->makeString()));
         }
-    };//TODO:stringable
+    }
 
     void loadToMap(){
         this->file = fstream();
@@ -53,7 +53,7 @@ public:
         string solution;
         while (getline(this->file, line)) {
             if (line == END_OF_SOLUTION) {
-                this->myData.insert(pair<string, string>(problem, solution));
+                this->data.insert(pair<string, string>(problem, solution));
                 isProblem = true;
                 problem = "";
                 solution = "";
@@ -68,9 +68,11 @@ public:
         }
     }
     void saveMap(){
-
+        this->file.open("blut.txt", ios::app);
+        for (pair<string, string> pr_sl:this->data) {
+            saveObjectInFile(pr_sl.first, pr_sl.second);
+        }
     }
-
     void saveObjectInFile(string problem,string solution){
         this->file << problem << endl;
         this->file << END_OF_PROBLEM << endl;

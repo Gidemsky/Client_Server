@@ -15,7 +15,7 @@ public:
     virtual Node getInitialNode() const = 0;
     virtual Node getGoalNode() const = 0;
     virtual std::vector<State<Node>> getAllPossibleStates(State<Node>) const = 0;
-    virtual int size() const = 0; //TODO: check if it is template
+    //virtual int size() const = 0; //TODO: check if it is template
 };
 
 #endif //CLIENT_SERVER_ISEARCHABLE_H

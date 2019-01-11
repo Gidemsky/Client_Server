@@ -9,6 +9,7 @@
 #include <list>
 #include "string"
 #include "fstream"
+#include "Matrix.h"
 #include <vector>
 
 using namespace std;
@@ -16,11 +17,10 @@ using namespace std;
 class Separator {
     string user_input;
     vector<vector<double>> mat_assigned_data;
-    int mat_length, mat_width;
 public:
     Separator(string user_input);
-    //vector<vector<double>> stringConverter(vector<string> vec_line, string split);
     void valueParser(string& strData, string strSpliter);
+    Matrix* matrixCreator();
 };
 
 #endif //CLIENT_SERVER_SEPARATER_H

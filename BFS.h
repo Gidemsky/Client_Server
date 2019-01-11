@@ -43,7 +43,7 @@ public:
             for (int i = 0; i < possible_states.size(); i++)
             {
                 State<Node> temp = possible_states[i];//temporary plaster
-                if (temp.getCost()
+                if (temp.getCost());
             }
         }
     }

@@ -42,3 +42,7 @@ void Separator::valueParser(string& strData, string strSpliter) {
     }
 }
 
+Matrix* Separator::matrixCreator(){
+    return new Matrix(this->mat_assigned_data);
+}
+
