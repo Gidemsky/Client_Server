@@ -10,7 +10,7 @@ using Point = std::pair<int, int>;
 
 int main() {
     string str = "1 , 2 , 3|4,5,6|7,8,9|0,1|2,2|   end";
-    MySerialServer s;
+    MySerialServer s = MySerialServer();
     ICacheManager<Stringable,Stringable>* cacheManager=new FileCacheManager();
     ClientHandler *c = new StringReverseCH(cacheManager);
     s.open(5400, c);

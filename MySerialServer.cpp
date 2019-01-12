@@ -51,7 +51,6 @@ void MySerialServer::open(int port, ClientHandler* clientHandler) {
     }
 }
 
-
 //bool MySerialServer::stop() {
 //    cout<<"lalal"<<endl;
 //}
