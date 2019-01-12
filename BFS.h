@@ -9,6 +9,7 @@
 #include <list>
 #include <map>
 #include <vector>
+#include <iostream>
 
 using namespace std;
 
@@ -31,17 +32,16 @@ public:
      */
     std::vector<Node> search(Searchable<Node> *searchable) override {
         // get the initial node
-        State<Node> node = searchable->getInitialState();
-        State<Node> second_node;
+        State<Node> *node = searchable->getInitialState();
+        State<Node> *second_node;
         // create a queue for the algorithm
-        list<State<Node>> queue;
-        vector<State<Node>> possible_states;
+        list<State<Node>*> queue;
+        vector<State<Node>*> possible_states;
         // mark the current node as visited
-        node.setVisited(true);
+        node->setVisited(true);
         // enqueue the node
         queue.push_back(node);
 
-        //TODO: add solution
         while (!queue.empty()) {
             // Dequeue a vertex from queue
             node = queue.front();
@@ -49,11 +49,11 @@ public:
             possible_states = searchable->getAllPossibleStates(node);
             for (int i = 0; i < possible_states.size(); i++) {
                 second_node = possible_states[i];
-                if (!second_node.isVisited()) {
-                    second_node.setVisited(true);
-                    second_node.setComeFrom(node);
+                if (!second_node->isVisited()) {
+                    second_node->setVisited(true);
+                    second_node->setComeFrom(node);
                 }
-                if (second_node.getState() == searchable->getGoalNode()) {
+                if (second_node->getState() == searchable->getGoalNode()) {
                     break;
                 }
             }

@@ -14,7 +14,10 @@ private:
     bool is_visited;
 
 public:
-    State();
+    State() {
+        this->come_from = nullptr;
+    }
+
     State(Node state, double cost){
         this->node = state;
         this->is_visited = false;

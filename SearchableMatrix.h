@@ -30,7 +30,6 @@ public:
      */
     State<Point> *getInitialState() const override {
         State<Point> *initial_state = nullptr;
-        initial_state->setComeFrom(nullptr);
         initial_state->setCost(matrix[entry_point]);
         initial_state->setState(entry_point);
         return initial_state;
@@ -44,6 +43,10 @@ public:
         return entry_point;
     }
 
+    /**
+     * Getter of the node
+     * @return the node
+     */
     Point getGoalNode() const override {
         return exit_point;
     }
@@ -53,14 +56,14 @@ public:
      * @param mat_state
      * @return vector with the possible states
      */
-    std::vector<State<Point> *> getAllPossibleStates(State<Point>& mat_state) {
+    std::vector<State<Point> *> getAllPossibleStates(State<Point> *mat_state) {
         // the vector to return
         std::vector<State<Point> *> pos_states;
         State<Point> *state;
         Point possible_point;
         // the state location
-        int x_pos = mat_state.getState().first;
-        int y_pos = mat_state.getState().second;
+        int x_pos = mat_state->getState().first;
+        int y_pos = mat_state->getState().second;
         // the matrix bounds
         int last_x_pos = matrix.getRow();
         int last_y_pos = matrix.getCol();
