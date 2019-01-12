@@ -51,9 +51,9 @@ void MySerialServer::open(int port, ClientHandler* clientHandler) {
     }
 }
 
-//bool MySerialServer::stop() {
-//    cout<<"lalal"<<endl;
-//}
+bool MySerialServer::stop() {
+    cout<<"lalal"<<endl;//TODO: check what needed to be in this function
+}
 
 void *MySerialServer::start(void *myParams) {
     struct thread_data *my_data;

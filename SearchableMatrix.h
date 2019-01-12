@@ -12,7 +12,7 @@ class SearchableMatrix : public Searchable<std::pair<int, int>> {
     Point exit_point;
 
 public:
-    SearchableMatrix(Matrix matrix, Point entry, Point exit) {
+    SearchableMatrix(Matrix &matrix, Point entry, Point exit) {
         this->matrix = matrix;
         this->entry_point = entry;
         this->exit_point = exit;

@@ -14,7 +14,7 @@ class MySerialServer: public Server{
 public:
     void open(int port, ClientHandler* clientHandler);
 
-    //bool stop() override;
+    bool stop() override;
 
     static void* start(void* myParams);
 };
