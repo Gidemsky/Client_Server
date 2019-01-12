@@ -39,7 +39,7 @@ public:
     }
 
     void setCost(double cost){
-        State::cost = cost;
+        this->cost = cost;
     }
 
     const State<Node>* getComeFrom() const{
@@ -47,7 +47,7 @@ public:
     }
 
     void setComeFrom(const State<Node> *come_from){
-        State::come_from = come_from;
+        this->come_from = come_from;
     }
 
     bool isVisited() const{

@@ -28,8 +28,9 @@ public:
      * Getter of the initial state
      * @return the initial state
      */
-    State<Point> *getInitialState() const override {
-        State<Point> *initial_state = nullptr;
+    State<Point>* getInitialState() const override {
+        State<Point> *initial_state =
+                new State<Point>();
         initial_state->setCost(matrix[entry_point]);
         initial_state->setState(entry_point);
         return initial_state;
