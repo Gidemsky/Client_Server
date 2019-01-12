@@ -9,10 +9,10 @@
 //#include "SearchableMatrix.h"
 
 class Matrix {
-    int row,col;
+    int row, col;
     using MatrixVec = std::vector<std::vector<double>>;
-    MatrixVec _data ;
-    std::pair<int,int> p_start, p_goal;
+    MatrixVec _data;
+    std::pair<int, int> p_start, p_goal;
 public:
     const MatrixVec &get_data() const {
         return _data;
@@ -25,9 +25,10 @@ public:
     const std::pair<int, int> &getP_goal() const {
         return p_goal;
     }
+
     using Point = std::pair<int, int>;
 
-    Matrix(const MatrixVec& vec) {//added  "explicit" check what
+    Matrix(const MatrixVec &vec) {//added  "explicit" check what
         this->_data = vec;
         setPointPairs();
         this->row = static_cast<int>(_data.size());
@@ -36,7 +37,7 @@ public:
 
     Matrix() {}
 
-    void setPointPairs(){
+    void setPointPairs() {
         std::vector<double> point_val = this->_data.back();
         int x = static_cast<int>(point_val[0]);
         int y = static_cast<int>(point_val[1]);
@@ -51,25 +52,21 @@ public:
         this->p_start.second = y;
     }
 
-    double& operator[](const Point& p)  {
+    double &operator[](const Point &p) {
         return _data[p.first][p.second];
     }
 
-    double operator[](const Point& p) const {
+    double operator[](const Point &p) const {
         return _data[p.first][p.second];
     }
 
-    int getRow(){
+    int getRow() {
         return this->row;
     }
 
-    int getCol(){
+    int getCol() {
         return this->col;
     }
-
-//    SearchableMatrix create(){
-//        return new SearchableMatrix(this->_data, this->p_start, this->p_goal);
-//    }
 };
 
 #endif //CLIENT_SERVER_MATRRIX_H
