@@ -27,6 +27,7 @@ public:
     {
         // get the initial node
         State<Node> node = searchable->getInitialState();
+        State<Node> second_node;
         // create a queue for the algorithm
         list<State<Node>> queue;
         vector<State<Node>> possible_states;
@@ -42,8 +43,13 @@ public:
             possible_states = searchable->getInitialState();
             for (int i = 0; i < possible_states.size(); i++)
             {
-                State<Node> temp = possible_states[i];//temporary plaster
-                if (temp.getCost());
+                second_node = possible_states[i];
+                if (!second_node.isVisited()) {
+                    second_node.setVisited(true);
+                    second_node.setComeFrom(node);
+
+                    //TODO: add solution
+                }
             }
         }
     }

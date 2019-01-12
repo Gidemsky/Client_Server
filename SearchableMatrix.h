@@ -37,6 +37,7 @@ public:
     Point getGoalNode() const override {
     return exit_point;
     }
+
     std::vector<State<Point>> getAllPossibleStates(State<Point> mat_state) {
         std::vector<State<Point>> pos_states;
 
