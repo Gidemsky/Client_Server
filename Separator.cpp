@@ -9,6 +9,7 @@
 
 #define VAL_SPLITER ","
 #define LINE_SPLITER "|"
+#define LINE_CLIENT_SPLITER "\n"
 
 /**
  * Ctor

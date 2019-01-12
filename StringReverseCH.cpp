@@ -23,18 +23,20 @@ pthread_mutex_t lock;
 
 void StringReverseCH::handleClient(int new_socket) {
     //TO DO : WHAT IS THE SIZE OF INPUT?
-    char buffer[5000];
+    char buffer[256];
     int erez = 0;
-    string str;
+    string str, buff, client_line;
     //reads from client as long as input is not stop
     while (str != END) {
         //pthread_mutex_lock(&lock);
         bzero(buffer, sizeof(str));
-        erez = read(new_socket, buffer, 5000);
+        erez = read(new_socket, buffer, 256);
         if (erez < 0) {
             perror("cannot read from client");
         }
-        string buff = buffer;
+        client_line = buffer;
+        //
+        buff += buffer;
         string retStReverse = solveProblem(buff);
         const char *ret = retStReverse.c_str();
         send(new_socket, ret, retStReverse.size(), 0);
