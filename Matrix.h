@@ -66,6 +66,6 @@ public:
     int getCol() {
         return this->col;
     }
-};
+};//
 
 #endif //CLIENT_SERVER_MATRRIX_H
