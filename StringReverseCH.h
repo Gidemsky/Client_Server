@@ -1,5 +1,5 @@
 //
-// Created by gideon on 10/01/19.
+// Created by gideon on 12/01/19.
 //
 
 #ifndef CLIENT_SERVER_STRINGREVERSECH_H
@@ -9,14 +9,17 @@
 #include "Solver.h"
 #include "string"
 #include "ICacheManager.h"
+#include "Stringable.h"
+
+using namespace std;
 
 class StringReverseCH : public ClientHandler {
-    Solver<std::string, std::string> *solver;
-    ICacheManager<std::string, std::string> *cacheManager;
+    Solver<string, string> *solver;
+    ICacheManager<Stringable, Stringable> *cacheManager;
 public:
-    StringReverseCH(ICacheManager<std::string, std::string> *cacheManger);
+    StringReverseCH(ICacheManager<Stringable, Stringable> *cacheManger);
 
-    std::string solveProblem(std::string &problem);
+    string solveProblem(string &problem);
 
     void handleClient(int socket) override;
 };

@@ -52,9 +52,9 @@ void MySerialServer::open(int port, ClientHandler* clientHandler) {
 }
 
 
-bool MySerialServer::stop() {
-    cout<<"lalal"<<endl;
-}
+//bool MySerialServer::stop() {
+//    cout<<"lalal"<<endl;
+//}
 
 void *MySerialServer::start(void *myParams) {
     struct thread_data *my_data;
@@ -73,7 +73,7 @@ void *MySerialServer::start(void *myParams) {
             perror("accept");
             exit(EXIT_FAILURE);
         }
-        //my_data->ch->clientHandler(new_socket);
+        my_data->ch->handleClient(new_socket);
     }
     close(sock);
 }

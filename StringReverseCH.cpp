@@ -1,11 +1,10 @@
 //
-// Created by gideon on 10/01/19.
+// Created by gideon on 12/01/19.
 //
 
 #include "StringReverseCH.h"
-#include "StringReverseCH.h"
-//#include "StringReverser.h"
-//#include "MyString.h"
+#include "StringReverser.h"
+#include "StringableMatrix.h"
 #include <iostream>
 #include <sys/types.h>
 #include <algorithm>
@@ -27,7 +26,7 @@ void StringReverseCH::handleClient(int new_socket) {
     char buffer[5000];
     int erez = 0;
     int natalie = 0;
-    std::string str;
+    string str;
     //reads from client as long as input is not stop
     while (str != END) {
         //pthread_mutex_lock(&lock);
@@ -36,8 +35,8 @@ void StringReverseCH::handleClient(int new_socket) {
         if (erez < 0) {
             perror("cannot read from client");
         }
-        std::string buff = buffer;
-        std::string retStReverse = solveProblem(buff);
+        string buff = buffer;
+        string retStReverse = solveProblem(buff);
         const char *ret = retStReverse.c_str();
         send(new_socket, ret, retStReverse.size(), 0);
         str = buffer;
@@ -45,15 +44,14 @@ void StringReverseCH::handleClient(int new_socket) {
     }
 }
 
-StringReverseCH::StringReverseCH(ICacheManager<std::string, std::string> *cacheManger) {
+StringReverseCH::StringReverseCH(ICacheManager<Stringable, Stringable> *cacheManger) {
     this->cacheManager = cacheManger;
-    //this->solver = new StringReverser();
+    this->solver = new StringReverser();
 }
 
-std::string StringReverseCH::solveProblem(std::string &problem) {
-//    MyString str(problem);
-//    if (this->cacheManager->isProblemExist(&str))
-//        return this->cacheManager->search(&str)->toString();
-//    return this->solver->solve(problem);
+string StringReverseCH::solveProblem(string &problem) {
+    StringableMatrix str(problem);
+    if (this->cacheManager->isProblemExist(&str))
+        return this->cacheManager->search(&str)->makeString();
+    return this->solver->solve(problem);
 }
-

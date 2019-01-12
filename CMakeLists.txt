@@ -3,4 +3,4 @@ project(Client_Server)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(Client_Server main.cpp MyClientHandler.cpp MyClientHandler.h ClientHandler.h Server.h Solver.h ICacheManager.h SolverSearcher.cpp SolverSearcher.h ISearcher.h BFS.cpp BFS.h Searchable.h State.cpp State.h Matrix.h Separator.cpp Separator.h FileCacheManager.h MySerialServer.cpp MySerialServer.h DFS.cpp DFS.h StringReverseCH.cpp StringReverseCH.h Stringable.h StringableMatrix.cpp StringableMatrix.h SearchableMatrix.h AStar.cpp AStar.h)
+add_executable(Client_Server main.cpp MyClientHandler.cpp MyClientHandler.h ClientHandler.h Server.h Solver.h ICacheManager.h SolverSearcher.cpp SolverSearcher.h ISearcher.h BFS.cpp BFS.h Searchable.h State.cpp State.h Matrix.h Separator.cpp Separator.h FileCacheManager.h MySerialServer.cpp MySerialServer.h DFS.cpp DFS.h StringReverseCH.cpp StringReverseCH.h Stringable.h StringableMatrix.cpp StringableMatrix.h SearchableMatrix.h)

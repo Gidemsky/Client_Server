@@ -6,9 +6,9 @@
 #define CLIENT_SERVER_SOLVER_H
 
 template <class Problem, class Solution>
-class Solver{
-    virtual Solution solve(Problem) = 0;
-
+class Solver {
+public:
+    virtual Solution solve(Problem problem) = 0;
 };
 
 #endif //CLIENT_SERVER_SOLVER_H

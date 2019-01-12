@@ -21,71 +21,88 @@ public:
         this->cost = cost;
     }
 
-    bool operator==(State<Node> s);
+    bool operator==(State<Node> s){
+        // TODO check if pointers comparison satisfies the equality requirements
+        return (s.come_from == come_from && s.cost == cost && s.node == node);
+    }
 
-    Node getState() const;
+    Node getState() const{
+        return node;
+    }
 
     void setState(Node state){
         this->node = state;
     }
 
-    double getCost() const;
+    double getCost() const{
+        return cost;
+    }
 
-    void setCost(double cost);
+    void setCost(double cost){
+        State::cost = cost;
+    }
 
-    const State<Node>* getComeFrom() const;
+    const State<Node>* getComeFrom() const{
+        return come_from;
+    }
 
-    void setComeFrom(const State<Node> *come_from);
+    void setComeFrom(const State<Node> *come_from){
+        State::come_from = come_from;
+    }
 
-    bool isVisited() const;
+    bool isVisited() const{
+        return this->is_visited;
+    }
 
-    void setVisited(bool b);
+    void setVisited(bool b){
+        this->is_visited = b;
+    }
 };
 
-template<class T>
-bool State<T>::operator==(State<T> s) {
-    // TODO check if pointers comparison satisfies the equality requirements
-    return (s.come_from == come_from && s.cost == cost && s.node == node);
-}
+//template<class T>
+//bool State<T>::operator==(State<T> s) {
+//    // TODO check if pointers comparison satisfies the equality requirements
+//    return (s.come_from == come_from && s.cost == cost && s.node == node);
+//}
 
-template<class T>
-T State<T>::getState() const {
-    return node;
-}
+//template<class T>
+//T State<T>::getState() const {
+//    return node;
+//}
 
 //template<class T>
 //void State<T>::setState(T state) {
 //    this->node = state;
 //}
 
-template<class T>
-double State<T>::getCost() const {
-    return cost;
-}
+//template<class T>
+//double State<T>::getCost() const {
+//    return cost;
+//}
 
-template<class T>
-void State<T>::setCost(double cost) {
-    State::cost = cost;
-}
+//template<class T>
+//void State<T>::setCost(double cost) {
+//    State::cost = cost;
+//}
 
-template<class T>
-const State<T>* State<T>::getComeFrom() const {
-    return come_from;
-}
+//template<class T>
+//const State<T>* State<T>::getComeFrom() const {
+//    return come_from;
+//}
 
-template<class T>
-void State<T>::setComeFrom(const State<T> *come_from) {
-    State::come_from = come_from;
-}
+//template<class T>
+//void State<T>::setComeFrom(const State<T> *come_from) {
+//    State::come_from = come_from;
+//}
 
-template<class Node>
-void State<Node>::setVisited(bool b) {
-    this->is_visited = b;
-}
+//template<class Node>
+//void State<Node>::setVisited(bool b) {
+//    this->is_visited = b;
+//}
 
-template<class Node>
-bool State<Node>::isVisited() const {
-    return this->is_visited;
-}
+//template<class Node>
+//bool State<Node>::isVisited() const {
+//    return this->is_visited;
+//}
 
 #endif //CLIENT_SERVER_STATE_H
