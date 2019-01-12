@@ -7,8 +7,6 @@
 #include "SearchableMatrix.h"
 #include "Searchable.h"
 
-
-
 using Point = std::pair<int, int>;
 
 
