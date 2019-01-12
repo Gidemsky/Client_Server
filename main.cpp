@@ -19,6 +19,7 @@ void bfsTest() {
     Searchable<Point> *searchableMatrix = new SearchableMatrix(
             *matrix ,matrix->getP_start(),matrix->getP_goal());
 
+
 }
 
 void Test() {
