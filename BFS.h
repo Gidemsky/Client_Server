@@ -14,10 +14,16 @@ using namespace std;
 
 template<class Node>
 class BFS : public ISearcher<Node> {
-    Searchable<Node> *searchable;
     int count;
 
 public:
+    /**
+     * Ctor
+     */
+    BFS() {
+        this->count = 0;
+    }
+
     /**
      * The algorithm
      * @param searchable

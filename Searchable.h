@@ -11,10 +11,13 @@
 template <class Node>
 class Searchable {
 public:
-    virtual State<Node> getInitialState() const = 0;
+    virtual State<Node> *getInitialState() const = 0;
+
     virtual Node getInitialNode() const = 0;
+
     virtual Node getGoalNode() const = 0;
-    virtual std::vector<State<Node>*> getAllPossibleStates(State<Node>) = 0; // TODO: Check if const is needed
+
+    virtual std::vector<State<Node> *> getAllPossibleStates(State<Node> &) = 0; // TODO: Check if const is needed
 };
 
 #endif //CLIENT_SERVER_ISEARCHABLE_H

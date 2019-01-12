@@ -17,6 +17,8 @@ class DFS : public ISearcher<Node> {
     int count;
 
 public:
+
+
     /**
      * The algorithm
      * @param searchable
