@@ -633,22 +633,21 @@ void aStarSearch(int grid[][COL], Pair src, Pair dest)
 
 
 // Driver program to test above function
-int main()
-{
+int main() {
     /* Description of the Grid-
      1--> The cell is not blocked
      0--> The cell is blocked    */
     int grid[ROW][COL] =
             {
-                    { 1, 0, 1, 1, 1, 1, 0, 1, 1, 1 },
-                    { 1, 1, 1, 0, 1, 1, 1, 0, 1, 1 },
-                    { 1, 1, 1, 0, 1, 1, 0, 1, 0, 1 },
-                    { 0, 0, 1, 0, 1, 0, 0, 0, 0, 1 },
-                    { 1, 1, 1, 0, 1, 1, 1, 0, 1, 0 },
-                    { 1, 0, 1, 1, 1, 1, 0, 1, 0, 0 },
-                    { 1, 0, 0, 0, 0, 1, 0, 0, 0, 1 },
-                    { 1, 0, 1, 1, 1, 1, 0, 1, 1, 1 },
-                    { 1, 1, 1, 0, 0, 0, 1, 0, 0, 1 }
+                    {1, 0, 1, 1, 1, 1, 0, 1, 1, 1},
+                    {1, 1, 1, 0, 1, 1, 1, 0, 1, 1},
+                    {1, 1, 1, 0, 1, 1, 0, 1, 0, 1},
+                    {0, 0, 1, 0, 1, 0, 0, 0, 0, 1},
+                    {1, 1, 1, 0, 1, 1, 1, 0, 1, 0},
+                    {1, 0, 1, 1, 1, 1, 0, 1, 0, 0},
+                    {1, 0, 0, 0, 0, 1, 0, 0, 0, 1},
+                    {1, 0, 1, 1, 1, 1, 0, 1, 1, 1},
+                    {1, 1, 1, 0, 0, 0, 1, 0, 0, 1}
             };
 
     // Source is the left-most bottom-most corner
@@ -659,5 +658,5 @@ int main()
 
     aStarSearch(grid, src, dest);
 
-    return(0);
+    return (0);
 }

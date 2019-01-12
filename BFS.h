@@ -40,7 +40,7 @@ public:
             // Dequeue a vertex from queue
             node = queue.front();
             queue.pop_front();
-            possible_states = searchable->getInitialState();
+            possible_states = searchable->getAllPossibleStates(node);
             for (int i = 0; i < possible_states.size(); i++)
             {
                 second_node = possible_states[i];
