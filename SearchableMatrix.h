@@ -11,6 +11,7 @@
 class SearchableMatrix : public Searchable<std::pair<int, int>>
 {
     Matrix matrix;
+
     using Point = std::pair<int, int>;
     Point entry_point;
     Point exit_point;

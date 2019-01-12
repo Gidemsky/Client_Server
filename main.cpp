@@ -17,7 +17,7 @@ void bfsTest() {
     Separator separator(str);
     Matrix* matrix = separator.matrixCreator();
     Searchable<Point> *searchableMatrix = new SearchableMatrix(
-            matrix->get_data(),matrix->getP_start(),matrix->getP_goal());
+            *matrix ,matrix->getP_start(),matrix->getP_goal());
 
 }
 
@@ -28,26 +28,24 @@ void Test() {
     ClientHandler *c = new StringReverseCH(cacheManager);
     s.open(5400, c);
 //    pthread_exit(NULL);
-    vector<vector<double>> v;
-    vector<double> myV;
-    int j = 0;
-    for (double i = 0; i < 3; ++i) {
-        for (j; j < 3; ++j) {
-            myV.push_back(j);
-        }
-        v.push_back(myV);
-    }
-//    Point start = Point(0, 0);
-//    Point end = Point(2, 2);
+//    vector<vector<double>> v;
+//    vector<double> myV;
+//    int j = 0;
+//    for (double i = 0; i < 3; ++i) {
+//        for (j; j < 3; ++j) {
+//            myV.push_back(j);
+//        }
+//        v.push_back(myV);
+//    }
     Separator separator(str);
     Matrix* matrix = separator.matrixCreator();
     SearchableMatrix* searchableMatrix;
     searchableMatrix = new SearchableMatrix(
-            matrix->get_data(),matrix->getP_start(),matrix->getP_goal());
+            *matrix ,matrix->getP_start(),matrix->getP_goal());
 }
 
 int main() {
-    //Test();
+    Test();
     //bfsTest();
     return 0;
 }

@@ -30,19 +30,21 @@ void Separator::valueParser(string& strData, string strSpliter) {
             lineData.erase(0, pos + 1);
         }
         //line_vals.push_back(lineData);
-        valueParser(lineData, VAL_SPLITER);
+        //valueParser(lineData, VAL_SPLITER);
     } else {
         while ((pos = lineData.find(strSpliter)) != string::npos) {
             unsaperated_vals = lineData.substr(0, pos);
             line_vals.push_back(stod(unsaperated_vals));
             lineData.erase(0, pos + 1);
         }
+        unsaperated_vals = lineData.substr(0, pos);
         line_vals.push_back(stod(unsaperated_vals));
         this->mat_assigned_data.push_back(line_vals);
     }
 }
 
 Matrix* Separator::matrixCreator(){
+    valueParser(this->user_input, LINE_SPLITER);
     return new Matrix(this->mat_assigned_data);
 }
 
