@@ -6,7 +6,6 @@
 #define CLIENT_SERVER_MATRRIX_H
 
 #include <vector>
-//#include "SearchableMatrix.h"
 
 class Matrix {
     int row, col;
@@ -28,7 +27,7 @@ public:
 
     using Point = std::pair<int, int>;
 
-    Matrix(const MatrixVec &vec) {//added  "explicit" check what
+    explicit Matrix(const MatrixVec &vec) {//added  "explicit" check what
         this->_data = vec;
         setPointPairs();
         this->row = static_cast<int>(_data.size());

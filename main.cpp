@@ -8,18 +8,18 @@
 #include "Searchable.h"
 
 using Point = std::pair<int, int>;
-
+string string_mat = "1,2,3,4|5,6,7,8|9,10,11,12|13,14,15,16";
 
 void bfsTest() {
-    string str = "1 , 2 , 3|4,5,6|7,8,9|0,1|2,2|   end";
-    Separator separator(str);
+    string string_mat1 = "1,2,3,4|5,6,7,8|9,10,11,12|13,14,15,16";
+    Separator separator(string_mat1);
     Matrix* matrix = separator.matrixCreator();
     Searchable<Point> *searchableMatrix = new SearchableMatrix(
             *matrix ,matrix->getP_start(),matrix->getP_goal());
 }
 
 void Test() {
-    string str = "1 , 2 , 3|4,5,6|7,8,9|0,1|2,2|   end";
+    string string_mat2 = "1,2,3,4|10,20,30,40|9,10,11,12|13,14,15,16";
     MySerialServer s = MySerialServer();
     ICacheManager<Stringable,Stringable>* cacheManager=new FileCacheManager();
     ClientHandler *c = new StringReverseCH(cacheManager);
@@ -34,7 +34,7 @@ void Test() {
 //        }
 //        v.push_back(myV);
 //    }
-    Separator separator(str);
+    Separator separator(string_mat2);
     Matrix* matrix = separator.matrixCreator();
     SearchableMatrix* searchableMatrix;
     searchableMatrix = new SearchableMatrix(
