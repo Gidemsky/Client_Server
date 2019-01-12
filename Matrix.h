@@ -10,7 +10,7 @@
 
 class Matrix {
     int row,col;
-    using MatrixVec = std::vector<std::vector<double>> ;
+    using MatrixVec = std::vector<std::vector<double>>;
     MatrixVec _data ;
     std::pair<int,int> p_start, p_goal;
 public:

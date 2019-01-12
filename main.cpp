@@ -5,10 +5,23 @@
 #include "FileCacheManager.h"
 #include "Separator.h"
 #include "SearchableMatrix.h"
+#include "Searchable.h"
+
+
 
 using Point = std::pair<int, int>;
 
-int main() {
+
+void bfsTest() {
+    string str = "1 , 2 , 3|4,5,6|7,8,9|0,1|2,2|   end";
+    Separator separator(str);
+    Matrix* matrix = separator.matrixCreator();
+    Searchable<Point> *searchableMatrix = new SearchableMatrix(
+            matrix->get_data(),matrix->getP_start(),matrix->getP_goal());
+
+}
+
+void Test() {
     string str = "1 , 2 , 3|4,5,6|7,8,9|0,1|2,2|   end";
     MySerialServer s = MySerialServer();
     ICacheManager<Stringable,Stringable>* cacheManager=new FileCacheManager();
@@ -30,6 +43,11 @@ int main() {
     Matrix* matrix = separator.matrixCreator();
     SearchableMatrix* searchableMatrix;
     searchableMatrix = new SearchableMatrix(
-                matrix->get_data(),matrix->getP_start(),matrix->getP_goal());
+            matrix->get_data(),matrix->getP_start(),matrix->getP_goal());
+}
+
+int main() {
+    //Test();
+    //bfsTest();
     return 0;
 }
