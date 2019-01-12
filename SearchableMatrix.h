@@ -33,10 +33,26 @@ public:
         return exit_point;
     }
 
-    std::vector<State<Point> *> getAllPossibleStates(State<Point> mat_state) {
+    /**
+     * Check if the point is in the matrix.
+     * @param p is the point.
+     * @return true if it's in the matrix, false otherwise.
+     */
+    bool isPointInMatrix(Point p) {
+        int last_x = matrix.getRow();
+        int last_y = matrix.getCol();
+        int x = p.first;
+        int y = p.second;
+        if (x < 0 || x > last_x || y < 0 || y > last_y) {
+            return false;
+        }
+        return true;
+    }
+
+    std::vector<State<Point> *> getAllPossibleStates(State<Point> mat_state) override {
         std::vector<State<Point> *> pos_states;
 
-        Point exam_possible_point;
+        Point possible_point;
 
         int x_pos = mat_state.getState().first;
         int y_pos = mat_state.getState().second;
@@ -48,36 +64,36 @@ public:
 
         //if it is possible to return current y position on the above row
         if (x_pos > 0) {
-            exam_possible_point = Point(x_pos - 1, y_pos);
-            if (matrix[exam_possible_point] >= 0) {
-                state = new State<Point>(exam_possible_point, this->matrix[exam_possible_point]);
+            possible_point = Point(x_pos - 1, y_pos);
+            if (matrix[possible_point] >= 0) {
+                state = new State<Point>(possible_point, this->matrix[possible_point]);
                 pos_states.push_back(state);
             }
         }
 
         //next row
         if (x_pos < last_x_pos) {
-            exam_possible_point = Point(x_pos + 1, y_pos);
-            if (matrix[exam_possible_point] >= 0) {
-                state = new State<Point>(exam_possible_point, this->matrix[exam_possible_point]);
+            possible_point = Point(x_pos + 1, y_pos);
+            if (matrix[possible_point] >= 0) {
+                state = new State<Point>(possible_point, this->matrix[possible_point]);
                 pos_states.push_back(state);
             }
         }
 
         //prev col
         if (y_pos > 0) {
-            exam_possible_point = Point(x_pos, y_pos - 1);
-            if (matrix[exam_possible_point] >= 0) {
-                state = new State<Point>(exam_possible_point, this->matrix[exam_possible_point]);
+            possible_point = Point(x_pos, y_pos - 1);
+            if (matrix[possible_point] >= 0) {
+                state = new State<Point>(possible_point, this->matrix[possible_point]);
                 pos_states.push_back(state);
             }
         }
 
         //next col
         if (y_pos < last_y_pos) {
-            exam_possible_point = Point(x_pos, y_pos + 1);
-            if (matrix[exam_possible_point] >= 0) {
-                state = new State<Point>(exam_possible_point, this->matrix[exam_possible_point]);
+            possible_point = Point(x_pos, y_pos + 1);
+            if (matrix[possible_point] >= 0) {
+                state = new State<Point>(possible_point, this->matrix[possible_point]);
                 pos_states.push_back(state);
             }
         }

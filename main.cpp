@@ -16,8 +16,6 @@ void bfsTest() {
     Matrix* matrix = separator.matrixCreator();
     Searchable<Point> *searchableMatrix = new SearchableMatrix(
             *matrix ,matrix->getP_start(),matrix->getP_goal());
-
-
 }
 
 void Test() {
