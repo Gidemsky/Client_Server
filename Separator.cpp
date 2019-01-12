@@ -46,5 +46,5 @@ void Separator::valueParser(string& strData, string strSpliter) {
 Matrix* Separator::matrixCreator(){
     valueParser(this->user_input, LINE_SPLITER);
     return new Matrix(this->mat_assigned_data);
-}
+}//TODO: how to return template of data struct (this case is MATRIX)?
 

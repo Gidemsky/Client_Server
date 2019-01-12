@@ -25,7 +25,6 @@ void StringReverseCH::handleClient(int new_socket) {
     //TO DO : WHAT IS THE SIZE OF INPUT?
     char buffer[5000];
     int erez = 0;
-    int natalie = 0;
     string str;
     //reads from client as long as input is not stop
     while (str != END) {

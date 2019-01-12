@@ -12,7 +12,6 @@ template <class Node>
 class ISearcher {
 public:
     virtual std::vector<Node> search (Searchable<Node>* searchable) = 0;
-
     virtual int getNumberOfNodesEvaluated() = 0;
 };
 
