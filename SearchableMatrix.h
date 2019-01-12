@@ -67,7 +67,7 @@ public:
         // the matrix bounds
         int last_x_pos = matrix.getRow();
         int last_y_pos = matrix.getCol();
-        //if it is possible to return current y position on the above row
+        // if it is possible to return current y position on the above row
         if (x_pos > 0) {
             possible_point = Point(x_pos - 1, y_pos);
             if (matrix[possible_point] >= 0) {
@@ -76,7 +76,7 @@ public:
             }
         }
 
-        //next row
+        // next row
         if (x_pos < last_x_pos) {
             possible_point = Point(x_pos + 1, y_pos);
             if (matrix[possible_point] >= 0) {
@@ -85,7 +85,7 @@ public:
             }
         }
 
-        //prev col
+        // prev col
         if (y_pos > 0) {
             possible_point = Point(x_pos, y_pos - 1);
             if (matrix[possible_point] >= 0) {
@@ -94,7 +94,7 @@ public:
             }
         }
 
-        //next col
+        // next col
         if (y_pos < last_y_pos) {
             possible_point = Point(x_pos, y_pos + 1);
             if (matrix[possible_point] >= 0) {
