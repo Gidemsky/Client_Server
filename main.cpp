@@ -7,8 +7,8 @@
 #include "SearchableMatrix.h"
 #include "Searchable.h"
 #include "BFS.h"
-#include "BreadthFirstSearch.h"
-
+#include "BestFirstSearch.h"
+#include "DFS.h"
 
 using Point = std::pair<int, int>;
 string string_mat = "1,2,3,4|5,6,7,8|9,10,11,12|13,14,15,16|0,0|2,2|end";
@@ -19,8 +19,8 @@ void bfsTest() {
     Matrix* matrix = separator.matrixCreator();
     Searchable<Point> *searchableMatrix = new SearchableMatrix(
             *matrix ,matrix->getP_start(),matrix->getP_goal());
-    BFS<Point> *bfs = new BFS<Point>();
-    bfs->search(searchableMatrix);
+    DFS<Point> *dfs = new DFS<Point>();
+    dfs->search(searchableMatrix);
 }
 
 void breadthFirstSearch() {
@@ -29,7 +29,7 @@ void breadthFirstSearch() {
     Matrix* matrix = separator.matrixCreator();
     Searchable<Point> *searchableMatrix = new SearchableMatrix(
             *matrix ,matrix->getP_start(),matrix->getP_goal());
-    BreadthFirstSearch<Point> *breadfs = new BreadthFirstSearch<Point>();
+    BestFirstSearch<Point> *breadfs = new BestFirstSearch<Point>();
     breadfs->search(searchableMatrix);
 }
 
@@ -58,7 +58,7 @@ void Test() {
 
 int main() {
     //Test();
-    //bfsTest();
-    breadthFirstSearch();
+    bfsTest();
+    //breadthFirstSearch();
     return 0;
 }

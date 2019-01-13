@@ -7,43 +7,51 @@
 
 #include "ISearcher.h"
 #include <map>
+#include <vector>
+#include <stack>
 
 using namespace std;
 
 template <class Node>
 class DFS : public ISearcher<Node> {
-    // members
-    Searchable<Node>* searchable;
     int count;
+    vector<State<Node>*> path;
 
 public:
-
+    DFS() {
+        this->count = 0;
+    }
 
     /**
      * The algorithm
      * @param searchable
      * @return
      */
-    vector<Node> search (Searchable<Node>* searchable) override {
-        // number of vertices
-        int size = 10; // TODO: use the relevant func to find the size
+    std::vector<State<Node> *> search (Searchable<Node>* searchable) override {
+        stack<State<Node>*> stack;
         // get the initial state
-        State<Node> node = this->searchable->getInitialState();
-        // help us to know if the vertex is visited
-        map<State<Node>, bool> visited;
-        this->dfsUtil(node, visited);
-    }
+        State<Node>* node = searchable->getInitialState();
+        stack.push(node);
+        // get all adjacent vertices of the initial state
+        vector<State<Node>*> possible_states =
+                searchable->getAllPossibleStates(node);
+        State<Node>* second_node;
+        while (!stack.empty()) {
+            node = stack.top();
+            stack.pop();
 
-    void dfsUtil(State<Node> node, map<State<Node>, bool> &visited) {
-        // mark the node as visited
-        visited.insert(node, true);
-        vector<State<Node>> possible_states =
-                this->searchable->getAllPossibleStates(node);
-        for (int i = 0; i < possible_states.size(); i++) {
-            if (!visited.find(possible_states[i])) {
-                this->dfsUtil(possible_states[i], visited);
+            if (!node->isVisited()) {
+                node->setVisited(true);
+            }
+
+            for (int i = 0; i < possible_states.size(); i++) {
+                second_node = possible_states[i];
+                if (!second_node->isVisited()) {
+                    stack.push(second_node);
+                }
             }
         }
+        return this->path;
     }
 
     /**
@@ -51,8 +59,9 @@ public:
      * @return the counter.
      */
     int getNumberOfNodesEvaluated() override {
-        return count;
+        return this->count;
     }
+
 };
 
 #endif //CLIENT_SERVER_DFS_H
