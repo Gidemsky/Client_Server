@@ -15,7 +15,6 @@ using namespace std;
 template <class Node>
 class DFS : public ISearcher<Node> {
     int count;
-    vector<State<Node>*> path;
 
 public:
     DFS() {
@@ -28,6 +27,7 @@ public:
      * @return
      */
     std::vector<State<Node> *> search (Searchable<Node>* searchable) override {
+        std::vector<State<Node> *> return_val;
         stack<State<Node>*> stack;
         // get the initial state
         State<Node>* node = searchable->getInitialState();
@@ -35,7 +35,8 @@ public:
         // get all adjacent vertices of the initial state
         vector<State<Node>*> possible_states =
                 searchable->getAllPossibleStates(node);
-        State<Node>* second_node;
+        State<Node>* second_node, *save;
+        save = nullptr;
         while (!stack.empty()) {
             node = stack.top();
             stack.pop();
@@ -49,9 +50,25 @@ public:
                 if (!second_node->isVisited()) {
                     stack.push(second_node);
                 }
+
+                if (second_node->getState() == searchable->getGoalNode()) {
+                    save = second_node;
+                }
             }
         }
-        return this->path;
+
+        return_val.push_back(save);
+
+        // --------------------- test ---------------------
+        if (save == nullptr) {
+            cout << "problem!" << endl;
+        } else {
+            cout << "good!" << endl;
+        }
+
+        //cout << save->getState().first << endl;
+        //cout << save->getState().second << endl;
+        return return_val;
     }
 
     /**

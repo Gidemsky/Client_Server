@@ -13,25 +13,26 @@
 using Point = std::pair<int, int>;
 string string_mat = "1,2,3,4|5,6,7,8|9,10,11,12|13,14,15,16|0,0|3,3|end";
 
-void bfsTest() {
-    string string_mat1 = "1,2,3|4,5,6|7,8,9|0,0|2,2|end";
+void dfsTest() {
+    string string_mat1 = "1,2,3|4,5,6|7,8,9|0,0|1,1|end";
     Separator separator(string_mat1);
     Matrix* matrix = separator.matrixCreator();
     Searchable<Point> *searchableMatrix = new SearchableMatrix(
             *matrix ,matrix->getP_start(),matrix->getP_goal());
-    BFS<Point> *dfs = new BFS<Point>();
+    DFS<Point> *dfs = new DFS<Point>();
     dfs->search(searchableMatrix);
 }
 
-void breadthFirstSearch() {
-    string string_mat1 = "1,2,3,4|5,6,7,8|9,10,11,12|13,14,15,16|0,0|2,2|end";
+void bfsTest() {
+    string string_mat1 = "1,2,3|4,5,6|7,8,9|0,0|1,1|end";
     Separator separator(string_mat1);
     Matrix* matrix = separator.matrixCreator();
     Searchable<Point> *searchableMatrix = new SearchableMatrix(
             *matrix ,matrix->getP_start(),matrix->getP_goal());
-    BestFirstSearch<Point> *breadfs = new BestFirstSearch<Point>();
-    breadfs->search(searchableMatrix);
+    BFS<Point> *bfs = new BFS<Point>();
+    bfs->search(searchableMatrix);
 }
+
 
 void Test() {
     string string_mat2 = "1,2,3,4|5,6,7,8|9,10,11,12|13,14,15,16|0,0|2,2|end";
@@ -58,7 +59,8 @@ void Test() {
 
 int main() {
     //Test();
-    bfsTest();
+    //bfsTest();
+    dfsTest();
     //breadthFirstSearch();
     return 0;
 }

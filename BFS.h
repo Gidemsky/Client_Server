@@ -28,10 +28,10 @@ public:
      * @return
      */
     std::vector<State<Node> *> search(Searchable<Node> *searchable) override {
-        std::vector<State<Node> *> path;
+        std::vector<State<Node> *> return_val;
         // get the initial node
         State<Node> *node = searchable->getInitialState();
-        State<Node> *second_node;
+        State<Node> *second_node, *save;
         // create a queue for the algorithm
         list<State<Node> *> queue;
         vector<State<Node> *> possible_states;
@@ -48,18 +48,20 @@ public:
             for (int i = 0; i < possible_states.size(); i++) {
                 second_node = possible_states[i];
                 if (!second_node->isVisited()) {
-                    path.push_back(second_node);
                     second_node->setVisited(true);
                     second_node->setComeFrom(node);
                     queue.push_back(second_node);
                     this->count++;
                 }
+
                 if (second_node->getState() == searchable->getGoalNode()) {
-                    break; // TODO: backTrace
+                    save = second_node;
+                    // TODO: backTrace
                 }
             }
         }
-        return path;
+        return_val.push_back(save);
+        return return_val;
     }
 
     /**
