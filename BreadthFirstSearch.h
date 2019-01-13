@@ -26,7 +26,7 @@ public:
     virtual vector<State<Node>*> search (Searchable<Node>* searchable);
 
     virtual int getNumberOfNodesEvaluated(){
-        return this->nodesEvaluated;
+        return this->count;
     }
 };
 
@@ -38,7 +38,7 @@ vector<State<Node>*> BreadthFirstSearch<Node>::search(Searchable<Node> *searchab
     //vector<State<Node>> close;TODO: check if needed
     State<Node>* state = searchable->getInitialState();
     queue.push_back(state);
-    state->setVisited();
+    state->setVisited(true);
     // 'i' will be used to get all adjacent
     // vertices of a vertex
     typename vector<State<Node>*>::iterator i;
@@ -47,7 +47,7 @@ vector<State<Node>*> BreadthFirstSearch<Node>::search(Searchable<Node> *searchab
         // Dequeue a vertex from queue and print it
         state = queue.front();
         queue.pop_front();
-        if(searchable->getGoalState()==state->getState()){
+        if(searchable->getGoalNode()==state->getState()){
             break;
         }
         // Get all adjacent vertices of the dequeued
@@ -56,30 +56,29 @@ vector<State<Node>*> BreadthFirstSearch<Node>::search(Searchable<Node> *searchab
         vector<State<Node>*> adj = searchable->getAllPossibleStates(state);
         for (i = adj.begin(); i != adj.end(); ++i) {
             State<Node>* nei=(*i);
-            if (!(nei->ifVisited()))
+            if (!nei->isVisited())
             {
-                nei->setVisited();
-                nei->setCameFrom(state);
+                nei->setVisited(true);
+                nei->setComeFrom(state);
                 queue.push_back(nei);
             }
         }
     }
     //get the nodes from the goal to begin
     vector<State<Node>*> returnVal;
-    State<Node>* currentState = searchable->getGoalState();
+    State<Node>* currentState = new State<Node>(searchable->getGoalNode(),5);
     State<Node>* beginState = searchable->getInitialState();
-    if(currentState->getDad()==NULL){
+    if(currentState->getComeFrom()==NULL){
         return returnVal;
     }
-
-    while (!beginState->Equal(currentState)){
+    while (!(beginState->getState() == currentState->getState())){
         returnVal.push_back(currentState);
-        currentState = currentState->getDad();
+        currentState = currentState->getComeFrom();
     }
     returnVal.push_back(searchable->getInitialState());
     std::reverse(returnVal.begin(),returnVal.end());
     //save number of nodes that evaluated
-    this->nodesEvaluated=returnVal.size();
+    //this->nodesEvaluated=returnVal.size();TODO:size function
     return returnVal;
 
 }

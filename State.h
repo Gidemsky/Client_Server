@@ -7,7 +7,7 @@ class State {
 private:
     Node node;
     double cost;    // price of the node
-    const State<Node>* come_from;
+    State<Node>* come_from;
     bool is_visited;
 
 public:
@@ -42,11 +42,11 @@ public:
         this->cost = cost;
     }
 
-    const State<Node>* getComeFrom() const{
-        return come_from;
+    State<Node>* getComeFrom() {
+        return this->come_from;
     }
 
-    void setComeFrom(const State<Node> *come_from){
+    void setComeFrom(State<Node> *come_from){
         this->come_from = come_from;
     }
 
