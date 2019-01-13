@@ -8,6 +8,7 @@
 class SearchableMatrix : public Searchable<std::pair<int, int>> {
     Matrix matrix;
     using Point = std::pair<int, int>;
+    State<Point>* initial_state;
     Point entry_point;
     Point exit_point;
 
@@ -22,17 +23,18 @@ public:
         this->matrix = matrix;
         this->entry_point = entry;
         this->exit_point = exit;
+        this->initial_state = new State<Point>();
     }
 
     /**
      * Getter of the initial state
      * @return the initial state
      */
-    State<Point>* getInitialState() const override {//WTF???
-        State<Point> *initial_state =
-                new State<Point>();
-        initial_state->setCost(matrix[entry_point]);
-        initial_state->setState(entry_point);
+    State<Point>* getInitialState() const override {
+//        State<Point> *initial_state =
+//                new State<Point>();
+        this->initial_state->setCost(matrix[entry_point]);
+        this->initial_state->setState(entry_point);
         return initial_state;
     }
 
