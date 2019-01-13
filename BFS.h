@@ -51,6 +51,7 @@ public:
                     path.push_back(second_node);
                     second_node->setVisited(true);
                     second_node->setComeFrom(node);
+                    queue.push_back(second_node);
                     this->count++;
                 }
                 if (second_node->getState() == searchable->getGoalNode()) {

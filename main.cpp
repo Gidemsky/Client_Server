@@ -11,15 +11,15 @@
 #include "DFS.h"
 
 using Point = std::pair<int, int>;
-string string_mat = "1,2,3,4|5,6,7,8|9,10,11,12|13,14,15,16|0,0|2,2|end";
+string string_mat = "1,2,3,4|5,6,7,8|9,10,11,12|13,14,15,16|0,0|3,3|end";
 
 void bfsTest() {
-    string string_mat1 = "1,2,3,4|5,6,7,8|9,10,11,12|13,14,15,16|0,0|2,2|end";
+    string string_mat1 = "1,2,3|4,5,6|7,8,9|0,0|2,2|end";
     Separator separator(string_mat1);
     Matrix* matrix = separator.matrixCreator();
     Searchable<Point> *searchableMatrix = new SearchableMatrix(
             *matrix ,matrix->getP_start(),matrix->getP_goal());
-    DFS<Point> *dfs = new DFS<Point>();
+    BFS<Point> *dfs = new BFS<Point>();
     dfs->search(searchableMatrix);
 }
 

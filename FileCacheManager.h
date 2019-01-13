@@ -68,7 +68,7 @@ public:
         }
     }
     void saveMap(){
-        this->file.open("blut.txt", ios::app);
+        this->file.open("data.txt", ios::app);
         for (pair<string, string> pr_sl:this->data) {
             saveObjectInFile(pr_sl.first, pr_sl.second);
         }
