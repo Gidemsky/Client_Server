@@ -33,8 +33,7 @@ public:
         State<Node>* node = searchable->getInitialState();
         stack.push(node);
         // get all adjacent vertices of the initial state
-        vector<State<Node>*> possible_states =
-                searchable->getAllPossibleStates(node);
+        vector<State<Node>*> possible_states;
         State<Node>* second_node, *save;
         save = nullptr;
         while (!stack.empty()) {
@@ -44,11 +43,13 @@ public:
             if (!node->isVisited()) {
                 node->setVisited(true);
             }
-
+            possible_states = searchable->getAllPossibleStates(node);
             for (int i = 0; i < possible_states.size(); i++) {
                 second_node = possible_states[i];
                 if (!second_node->isVisited()) {
+                    second_node->setComeFrom(node);
                     stack.push(second_node);
+                    this->count++;
                 }
 
                 if (second_node->getState() == searchable->getGoalNode()) {
@@ -58,16 +59,6 @@ public:
         }
 
         return_val.push_back(save);
-
-        // --------------------- test ---------------------
-        if (save == nullptr) {
-            cout << "problem!" << endl;
-        } else {
-            cout << "good!" << endl;
-        }
-
-        //cout << save->getState().first << endl;
-        //cout << save->getState().second << endl;
         return return_val;
     }
 

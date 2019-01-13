@@ -36,6 +36,7 @@ public:
 //                new State<Point>();
         this->initial_state->setCost(matrix[entry_point]);
         this->initial_state->setState(entry_point);
+        this->initial_state->setVisited(true);//TODO: check if needed
         return initial_state;
     }
 

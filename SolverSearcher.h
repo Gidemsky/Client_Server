@@ -12,9 +12,7 @@ template <class T>
 class SolverSearcher : public Solver<class Problem, class Solution> {
 private:
     ISearcher<T> s;
-
 public:
-
 };
 
 #endif //CLIENT_SERVER_SOLVERSEARCHER_H

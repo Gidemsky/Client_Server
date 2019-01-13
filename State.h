@@ -13,6 +13,7 @@ private:
 public:
     State() {
         this->come_from = nullptr;
+        this->is_visited = false;
     }
 
     State(Node state, double cost){
