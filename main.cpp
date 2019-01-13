@@ -46,6 +46,10 @@ void Test() {
             *matrix ,matrix->getP_start(),matrix->getP_goal());
 }
 
+/**
+ * Main
+ * @return
+ */
 int main() {
     //Test();
     bfsTest();

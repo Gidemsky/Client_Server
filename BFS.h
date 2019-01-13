@@ -27,14 +27,14 @@ public:
      * @param searchable
      * @return
      */
-    std::vector<State<Node>> search(Searchable<Node> *searchable) override {
-        std::vector<Node> *path;
+    std::vector<State<Node>*> search(Searchable<Node> *searchable) override {
+        std::vector<State<Node>*> path;
         // get the initial node
         State<Node> *node = searchable->getInitialState();
         State<Node> *second_node;
         // create a queue for the algorithm
-        list<State<Node> *> queue;
-        vector<State<Node> *> possible_states;
+        list<State<Node>*> queue;
+        vector<State<Node>*>  possible_states;
         // mark the current node as visited
         node->setVisited(true);
         // enqueue the node
@@ -48,7 +48,7 @@ public:
             for (int i = 0; i < possible_states.size(); i++) {
                 second_node = possible_states[i];
                 if (!second_node->isVisited()) {
-                    path->push_back(second_node->getState());
+                    path.push_back(second_node);
                     second_node->setVisited(true);
                     second_node->setComeFrom(node);
                     this->count++;
@@ -56,12 +56,15 @@ public:
                 if (second_node->getState() == searchable->getGoalNode()) {
                     break;
                 }
-
             }
         }
         return path;
     }
 
+    /**
+     * Getter of the number of nodes that evaluated
+     * @return the number
+     */
     int getNumberOfNodesEvaluated() override {
         return this->count;
     }
