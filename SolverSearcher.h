@@ -7,12 +7,16 @@
 
 #include "ISearcher.h"
 #include "Solver.h"
+#include <string>
 
-template <class T>
+template <class Node>
 class SolverSearcher : public Solver<class Problem, class Solution> {
 private:
-    ISearcher<T> s;
+    ISearcher<Node>* s;
 public:
+    virtual std::string solve(Searchable<Node>* problem){
+        return this->s->search(problem);
+    }
 };
 
 #endif //CLIENT_SERVER_SOLVERSEARCHER_H
