@@ -5,7 +5,7 @@
 #ifndef CLIENT_SERVER_STRINGREVERSECH_H
 #define CLIENT_SERVER_STRINGREVERSECH_H
 
-#include "ClientHandler.h"
+#include "IClientHandler.h"
 #include "Solver.h"
 #include "string"
 #include "ICacheManager.h"
@@ -13,7 +13,7 @@
 
 using namespace std;
 
-class StringReverseCH : public ClientHandler {
+class StringReverseCH : public IClientHandler {
     Solver<string, string> *solver;
     ICacheManager<Stringable, Stringable> *cacheManager;
 public:

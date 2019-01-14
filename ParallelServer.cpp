@@ -2,7 +2,7 @@
 // Created by gideon on 09/01/19.
 //
 
-#include "MySerialServer.h"
+#include "ParallelServer.h"
 #include <iostream>
 #include <sys/types.h>
 #include <algorithm>
@@ -22,10 +22,10 @@ using namespace std;
 
 struct thread_data {
     int sock;
-    ClientHandler *ch;
+    IClientHandler *ch;
 };
 
-void MySerialServer::open(int port, ClientHandler *clientHandler) {
+void ParallelServer::open(int port, IClientHandler *clientHandler) {
     this->port = port;
     this->clientHandler = clientHandler;
     int server_fd;
@@ -55,7 +55,7 @@ void MySerialServer::open(int port, ClientHandler *clientHandler) {
 //    }
 }
 
-bool MySerialServer::stop() {
+bool ParallelServer::stop() {
     cout << "lalal" << endl;//TODO: check what needed to be in this function
 }
 
@@ -65,7 +65,7 @@ void *start_thread_client(void *params) {
     delete data;
 }
 
-void MySerialServer::start(int server_sock, ClientHandler *ch) {
+void ParallelServer::start(int server_sock, IClientHandler *ch) {
     stack<pthread_t> threads_stack;
     sockaddr_in address{};
     int addrlen = sizeof(address);

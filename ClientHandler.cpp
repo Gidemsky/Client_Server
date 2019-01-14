@@ -2,7 +2,7 @@
 // Created by gideon on 08/01/19.
 //
 
-#include "MyClientHandler.h"
+#include "ClientHandler.h"
 #include "StringReverser.h"
 #include "StringableMatrix.h"
 #include "Separator.h"
@@ -24,7 +24,7 @@
 
 using Point = std::pair<int, int>;
 
-void myClientHandler::handleClient(int new_sock) {
+void ClientHandler::handleClient(int new_sock) {
     //TO DO : WHAT IS THE SIZE OF INPUT?
     char buffer[256];
     ssize_t erez = 0;
@@ -41,7 +41,6 @@ void myClientHandler::handleClient(int new_sock) {
             return;
         }
         buffer[erez] = 0;
-
         buff += string(buffer);
     }
     Separator separator(buff);

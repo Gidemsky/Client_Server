@@ -2,13 +2,28 @@
 // Created by gideon on 08/01/19.
 //
 
-#ifndef CLIENT_SERVER_ICLIENTHANDLER_H
-#define CLIENT_SERVER_ICLIENTHANDLER_H
+#ifndef CLIENT_SERVER_MYCLIENTHANDLER_H
+#define CLIENT_SERVER_MYCLIENTHANDLER_H
 
-#include "Matrix.h"
-#include <iostream>
-class ClientHandler {
+#include <unistd.h>
+#include "IClientHandler.h"
+#include "Stringable.h"
+#include "Solver.h"
+#include "ICacheManager.h"
+
+class ClientHandler : public IClientHandler {
+    Solver<string, string> *solver;
+    ICacheManager<Stringable, Stringable> *cacheManager;
 public:
-        virtual void handleClient(int sock) = 0;
+    ClientHandler(ICacheManager<Stringable, Stringable> *cacheManger)
+    {
+
+    }
+
+    string solveProblem(string &problem);
+
+    void handleClient(int sock) override;
 };
-#endif //CLIENT_SERVER_ICLIENTHANDLER_H
+
+
+#endif //CLIENT_SERVER_MYCLIENTHANDLER_H

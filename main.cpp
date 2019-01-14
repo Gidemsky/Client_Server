@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
-#include "MySerialServer.h"
-#include "MyClientHandler.h"
+#include "ParallelServer.h"
+#include "ClientHandler.h"
 #include "StringReverseCH.h"
 #include "FileCacheManager.h"
 #include "Separator.h"
@@ -37,9 +37,9 @@ void bfsTest() {
 
 void Test() {
     string string_mat2 = "1,2,3,4|5,6,7,8|9,10,11,12|13,14,15,16|0,0|2,2|end";
-    MySerialServer s = MySerialServer();
+    ParallelServer s = ParallelServer();
     ICacheManager<Stringable,Stringable>* cacheManager=new FileCacheManager();
-    ClientHandler *c = new StringReverseCH(cacheManager);
+    IClientHandler *c = new StringReverseCH(cacheManager);
     s.open(5400, c);
 //    pthread_exit(NULL);
 //    vector<vector<double>> v;
@@ -71,7 +71,7 @@ void bestFirstTest() {
 
 
 int main() {
-//    ClientHandler* handler = new myClientHandler(new FileCacheManager(7));
+//    IClientHandler* handler = new myClientHandler(new FileCacheManager(7));
 //    MySerialServer server;
 //    server.open(5432, handler);
 

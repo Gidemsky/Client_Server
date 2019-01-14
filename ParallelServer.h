@@ -9,13 +9,12 @@
 #include "Server.h"
 
 
-class MySerialServer: public Server{
+class ParallelServer: public Server{
     int port{};
-    ClientHandler* clientHandler{};
+    IClientHandler* clientHandler{};
 public:
-    void open(int port, ClientHandler* clientHandler) override;
-    static void start(int, ClientHandler *);
-
+    void open(int port, IClientHandler* clientHandler) override;
+    static void start(int, IClientHandler *);
     bool stop() override;
 
 };
