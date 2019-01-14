@@ -10,6 +10,9 @@ private:
     State<Node>* come_from;
     bool is_visited;
 
+    double shortestPathVal;
+
+
 public:
     State() {
         this->come_from = nullptr;
@@ -23,8 +26,19 @@ public:
     }
 
     bool& operator==(const State<Node>& s){
-        // TODO check if pointers comparison satisfies the equality requirements
         return (s.come_from == come_from && s.cost == cost && s.node == node);
+    }
+
+//    bool& operator==(const State<Node> s){
+//        return (s.come_from == come_from && s.cost == cost && s.node == node);
+//    }
+
+    State<Node> & operator=(const State<Node>& s){
+        this->node = s.getState();
+        this->cost = s.getCost();
+        this->come_from = s.getComeFrom();
+        this->is_visited = false;
+        return *this;
     }
 
     Node getState() const{
@@ -58,6 +72,15 @@ public:
     void setVisited(bool b){
         this->is_visited = b;
     }
+
+    double getShortestPathVal(){
+        return shortestPathVal;
+    }
+
+    void setShortestPathVal(double shortestPath) {
+        shortestPathVal = shortestPath;
+    }
+
 };
 
 #endif //CLIENT_SERVER_STATE_H

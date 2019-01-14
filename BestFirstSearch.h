@@ -8,13 +8,29 @@
 #include <list>
 #include <algorithm>
 #include "ISearcher.h"
+#include "Searchable.h"
+#include <unordered_map>
+#include <string>
+#include <algorithm>
+#include <queue>
 
 using namespace std;
 
 template<class Node>
 class BestFirstSearch : public ISearcher<Node> {
-private:
+    class StateCompare {
+    public:
+        bool operator()(State<Node> *left, State<Node> *right) {
+            return (left->getShortestPathVal() > right->getShortestPathVal());
+        }
+    };
+
     int count = 0;
+    vector<State<Node>*> saveValues;
+    vector<State<Node>*> closed;
+    vector<State<Node>*> temp;
+    priority_queue<State<Node>*, vector<State<Node>*>, StateCompare> openList;
+
 public:
 
     /**
@@ -29,6 +45,14 @@ public:
     virtual int getNumberOfNodesEvaluated() {
         return this->count;
     }
+
+    void addToOpenList(State<Node>* state);
+    int OpenListSize();
+    virtual State<Node>* popOpenList();
+    vector<State<Node>*> backTrace();
+    bool openContaines(State<Node>*);
+    State<Node>* bringContaines(State<Node>* state);
+    virtual string to_string(vector<State<Node>*> res);
 };
 
 template<class Node>
@@ -39,6 +63,123 @@ template<class Node>
  * @return
  */
 vector<State<Node> *> BestFirstSearch<Node>::search(Searchable<Node> *searchable) {
+    State<Node>* saveMyVal;
+    State<Node>* chekMyVal;
+    addToOpenList(searchable->getInitialState());
+    while (OpenListSize() > 0) {
+        State<Node>* n = popOpenList(); // inherited from Searcher, removes the best state
+        closed.push_back(n);
+        if (n == searchable->getGoalState())
+            return backTrace(); // private method, back traces through the parents
+        //calling the delegated method, returns a list of states with n as a parent
+        vector<State<Node> *> succerssors = searchable->getAllPossibleStates(n);
+        typename vector<State<Node>*>::iterator it;
 
+        for (it = succerssors.begin(); it != succerssors.end(); ++it) {
+
+            auto itClosed = find(closed.begin(), closed.end(), it.operator*());
+
+            if ((itClosed == closed.end()) && !openContaines(it.operator*())) {
+                // s.setComeFrom(n); // already done by getSuccessors
+
+                it.operator*()->setShortestPathVal(it.operator*()->getComeFrom()->getShortestPathVal()+it.operator*()->getCost());
+                addToOpenList(it.operator*());
+            } else {
+                double compareNode;
+                if(it.operator*()->getComeFrom()== NULL){
+                    compareNode = it.operator*()->getCost();
+                }else{
+                    compareNode = it.operator*()->getComeFrom()->getShortestPathVal() + it.operator*()->getCost();
+                }
+                chekMyVal = bringContaines(it.operator*());
+                if (chekMyVal != nullptr) {
+                    if (compareNode < chekMyVal->getCost()) {
+                        while (!(*openList.top() == it.operator*())) {
+                            temp.push_back(popOpenList());
+                        }
+                        saveMyVal = openList.top();
+                        openList.pop();
+                        saveMyVal->setShortestPathVal(compareNode);
+                        saveMyVal->setComeFrom(it.operator*()->getComeFrom());
+                        addToOpenList(saveMyVal);
+                        while (!temp.empty()){
+                            addToOpenList(temp.back());
+                            temp.pop_back();
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
+
+template <class Node>
+void BestFirstSearch<Node>:: addToOpenList(State<Node>* state){
+    openList.push_back(state);
+    saveValues.push_back(state);
+    this->count++;
+}
+
+template <class Node>
+int BestFirstSearch<Node>:: OpenListSize(){
+    openList.size();
+}
+
+template <class Node>
+State<Node>* BestFirstSearch<Node>:: popOpenList(){
+    State<Node>* top = openList.top();
+    openList.pop();
+    auto it = saveValues.begin();
+    for(it;it != saveValues.end(); ++it){
+        if(top->Equal(*it)){
+            saveValues.remove(*it);
+            break;
+        }
+    }
+    return top;
+}
+
+template <class Node>
+vector<State<Node>*> BestFirstSearch<Node>::backTrace(){
+    list<State<Node>*> solution;
+    State<Node>* saveVal = this->closed.back();
+    State<Node>* saveTheDad = saveVal->getComeFrom();
+    solution.push_back(closed.back());
+    closed.pop_back();
+    while(!closed.empty()) {
+        State<Node>* cmper = closed.back();
+
+        if(cmper->Equal(saveTheDad)){
+            solution.push_back(cmper);
+            solution.pop_back();
+            saveVal = this->closed.back();
+            saveTheDad = saveVal->getComeFrom();
+        }else{
+            solution.pop_back();
+        }
+
+    }
+    return solution;
+}
+
+template <class Node>
+bool BestFirstSearch<Node>::openContaines(State<Node>* state){
+    auto iterator = find(saveValues.begin(), saveValues.end(),state);
+    if(iterator == saveValues.end()){
+        return false;
+    } else {
+        return true;
+    }
+}
+
+template <class Node>
+State<Node>* BestFirstSearch<Node>::bringContaines(State<Node>* state){
+    auto iterator = find(saveValues.begin(), saveValues.end(),state);
+    if(iterator == saveValues.end()){
+        return nullptr;
+    } else {
+        return *iterator;
+    }
+}
+
 #endif //CLIENT_SERVER_BREADTHFIRSTSEARCH_H

@@ -12,6 +12,7 @@ class SearchableMatrix : public Searchable<std::pair<int, int>> {
     Point entry_point;
     Point exit_point;
     vector<Point> created_point;
+    State<Point>* goal_state;
 public:
     /**
      * Ctor
@@ -38,6 +39,13 @@ public:
         this->initial_state->setState(entry_point);
         this->initial_state->setVisited(true);//TODO: check if needed
         return initial_state;
+    }
+
+    State<Point>* getGoalState() const override {
+        this->goal_state->setCost(matrix[exit_point]);
+        this->goal_state->setState(exit_point);
+        this->goal_state->setVisited(false);
+        return goal_state;
     }
 
     /**
