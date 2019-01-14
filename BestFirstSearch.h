@@ -1,6 +1,3 @@
-//
-// Created by gideon on 13/01/19.
-//
 
 #ifndef CLIENT_SERVER_BREADTHFIRSTSEARCH_H
 #define CLIENT_SERVER_BREADTHFIRSTSEARCH_H
@@ -29,10 +26,7 @@ class BestFirstSearch : public ISearcher<Node> {
     };
 
     int count = 0;
-    vector<State<Node> *> saveValues;
     vector<State<Node> *> closed;
-    vector<State<Node> *> temp;
-
     vector<State<Node> *> openList;
 
 public:
@@ -49,16 +43,6 @@ public:
     virtual int getNumberOfNodesEvaluated() {
         return this->count;
     }
-
-    void addToOpenList(State<Node> *state){}
-
-    int OpenListSize(){}
-
-    virtual State<Node> *popOpenList(){}
-
-    bool openContaines(State<Node> *){}
-
-    State<Node> *bringContaines(State<Node> *state){}
 };
 
 template<class Node>
@@ -86,78 +70,31 @@ vector<State<Node> *> BestFirstSearch<Node>::search(Searchable<Node> *searchable
             return {top};
         }
 
-        auto * mat = dynamic_cast<SearchableMatrix *>(searchable);
+        auto *mat = dynamic_cast<SearchableMatrix *>(searchable);
 
         for (State<Node> *&neighbor : mat->getAllPossibleStates(top, 3)) {
             neighbor->setComeFrom(top);
             neighbor->setCost(neighbor->getCost() + top->getCost());
 
 
-            if (find_if(closed.begin(), closed.end(), [neighbor](auto ptr)  {
+            if (find_if(closed.begin(), closed.end(), [neighbor](auto ptr) {
                 return ptr->getState() == neighbor->getState();
             }) != closed.end()) {
                 continue;
             }
 
-            auto itr = find_if(openList.begin(), openList.end(), [neighbor](auto ptr)    {
+            auto itr = find_if(openList.begin(), openList.end(), [neighbor](auto ptr) {
                 return ptr->getState() == neighbor->getState();
             });
 
-            if (itr != openList.end())  {
+            if (itr != openList.end()) {
                 (*itr)->setCost(min((*itr)->getCost(), top->getCost() + (*itr)->getCost()));
-            } else{
+            } else {
                 openList.push_back(neighbor);
             }
         }
     }
     return {};
 }
-
-//template<class Node>
-//void BestFirstSearch<Node>::addToOpenList(State<Node> *state) {
-//    openList.push(state);
-//    saveValues.push_back(state);
-//    this->count++;
-//}
-//
-//template<class Node>
-//int BestFirstSearch<Node>::OpenListSize() {
-//    openList.size();
-//}
-//
-//template<class Node>
-//State<Node> *BestFirstSearch<Node>::popOpenList() {
-//    State<Node> *top = openList.top();
-//    openList.pop();
-//    auto it = saveValues.begin();
-//    for (it; it != saveValues.end(); ++it) {
-//        if (top == (*it)) {
-//            saveValues.erase(it);
-//            break;
-//        }
-//    }
-//    return top;
-//}
-//
-//
-//template<class Node>
-//bool BestFirstSearch<Node>::openContaines(State<Node> *state) {
-//    auto iterator = find(saveValues.begin(), saveValues.end(), state);
-//    if (iterator == saveValues.end()) {
-//        return false;
-//    } else {
-//        return true;
-//    }
-//}
-//
-//template<class Node>
-//State<Node> *BestFirstSearch<Node>::bringContaines(State<Node> *state) {
-//    auto iterator = find(saveValues.begin(), saveValues.end(), state);
-//    if (iterator == saveValues.end()) {
-//        return nullptr;
-//    } else {
-//        return *iterator;
-//    }
-//}
 
 #endif //CLIENT_SERVER_BREADTHFIRSTSEARCH_H
