@@ -9,6 +9,6 @@
 #include <iostream>
 class ClientHandler {
 public:
-        virtual void handleClient(int port) = 0;
+        virtual void handleClient(int sock) = 0;
 };
 #endif //CLIENT_SERVER_ICLIENTHANDLER_H

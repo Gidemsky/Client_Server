@@ -12,6 +12,8 @@
 #include <netdb.h>
 #include <arpa/inet.h>
 #include <string.h>
+#include <cerrno>
+#include <stack>
 #include <string>
 #include <iostream>
 #include <netinet/in.h>
@@ -19,60 +21,92 @@
 using namespace std;
 
 struct thread_data {
-    int port;
-    int new_sock;
-    int socket;
-    struct sockaddr_in address;
-    ClientHandler* ch;
+    int sock;
+    ClientHandler *ch;
 };
 
-void MySerialServer::open(int port, ClientHandler* clientHandler) {
+void MySerialServer::open(int port, ClientHandler *clientHandler) {
     this->port = port;
     this->clientHandler = clientHandler;
-    pthread_t thread;
-    int rc;
-    int server_fd, new_socket;
-    struct sockaddr_in address;
+    int server_fd;
+    struct sockaddr_in address{};
     server_fd = socket(AF_INET, SOCK_STREAM, 0);
     address.sin_family = AF_INET;
     address.sin_addr.s_addr = INADDR_ANY;
     address.sin_port = htons(port);
-    bind(server_fd, (struct sockaddr *) &address, sizeof(address));
-    thread_data *my_thread_data = new thread_data();
-    my_thread_data->port = this->port;
-    my_thread_data->new_sock = new_socket;
-    my_thread_data->socket = server_fd;
-    my_thread_data->address = address;
-    my_thread_data->ch=this->clientHandler;
-    rc = pthread_create(&thread, nullptr, start, my_thread_data);
-    if (rc) {
-        cout << "Error! unable to create thread";
+
+    if (bind(server_fd, (struct sockaddr *) &address, sizeof(address)) == -1) {
+        perror("socket bind");
         exit(1);
     }
+
+    if (listen(server_fd, 5) == -1) {
+        perror("socket listen");
+        exit(1);
+    }
+
+    start(server_fd, clientHandler);
+//    rc = pthread_create(&thread, nullptr, start, my_thread_data);
+//    if (rc) {
+//        cout << "Error! unable to create thread";
+//        exit(1);
+//    }
 }
 
 bool MySerialServer::stop() {
-    cout<<"lalal"<<endl;//TODO: check what needed to be in this function
+    cout << "lalal" << endl;//TODO: check what needed to be in this function
 }
 
-void *MySerialServer::start(void *myParams) {
-    struct thread_data *my_data;
-    my_data = (thread_data *) myParams;
-    int port = my_data->port;
-    int new_socket = my_data->new_sock;
-    int sock = my_data->socket;
-    struct sockaddr_in address = my_data->address;
+void *start_thread_client(void *params) {
+    auto data = (thread_data *) params;
+    data->ch->handleClient(data->sock);
+    delete data;
+}
+
+void MySerialServer::start(int server_sock, ClientHandler *ch) {
+    stack<pthread_t> threads_stack;
+    sockaddr_in address{};
     int addrlen = sizeof(address);
-    //!=stop
+
+    timeval timeout;
+    timeout.tv_sec = 10;
+    timeout.tv_usec = 0;
+    setsockopt(server_sock, SOL_SOCKET, SO_RCVTIMEO, (char *) &timeout, sizeof(timeout));
+
+    int new_socket;
     while (true) {
-        listen(sock, 5);
-        if ((new_socket = accept(sock,
-                (struct sockaddr *) &address,
-                        (socklen_t *) &addrlen)) < 0) {
+        timeout.tv_sec = 0;
+        timeout.tv_usec = 0;
+        setsockopt(server_sock, SOL_SOCKET, SO_RCVTIMEO, (char *) &timeout, sizeof(timeout));
+        if ((new_socket = accept(server_sock,
+                                 (struct sockaddr *) &address,
+                                 (socklen_t *) &addrlen)) < 0) {
+            if (errno == EWOULDBLOCK || errno == EAGAIN) {
+                cout << "timeout" << endl;
+                break;
+            }
             perror("accept");
             exit(EXIT_FAILURE);
         }
-        my_data->ch->handleClient(new_socket);
+        setsockopt(new_socket, SOL_SOCKET, SO_RCVTIMEO, (char *) &timeout, sizeof(timeout));
+
+        auto data = new thread_data;
+        data->ch = ch;
+        data->sock = new_socket;
+        pthread_t trid;
+        if (pthread_create(&trid, nullptr, start_thread_client, data) < 0) {
+            perror("error on creating thread");
+            exit(1);
+        }
+
+        threads_stack.push(trid);
+
     }
-    close(sock);
+
+    while (!threads_stack.empty()) {
+        pthread_join(threads_stack.top(), nullptr);
+        threads_stack.pop();
+    }
+
+    close(server_sock);
 }
