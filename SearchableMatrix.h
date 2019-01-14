@@ -13,6 +13,7 @@ class SearchableMatrix : public Searchable<std::pair<int, int>> {
     Point exit_point;
     vector<Point> created_point;
     State<Point>* goal_state;
+
 public:
     /**
      * Ctor

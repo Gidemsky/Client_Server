@@ -58,13 +58,26 @@ void Test() {
             *matrix ,matrix->getP_start(),matrix->getP_goal());
 }
 
+
+void bestFirstTest() {
+    string string_mat1 = "1,2,3 \n 4,5,6 \n 7,8,9 \n0,0\n2,2\nend";
+    Separator separator(string_mat1);
+    Matrix* matrix = separator.matrixCreator();
+    Searchable<Point> *searchableMatrix = new SearchableMatrix(
+            *matrix ,matrix->getP_start(),matrix->getP_goal());
+    BestFirstSearch<Point>* b = new BestFirstSearch<Point>();
+    b->search(searchableMatrix);
+}
+
+
 int main() {
-    ClientHandler* handler = new myClientHandler(new FileCacheManager(7));
-    MySerialServer server;
-    server.open(5432, handler);
+//    ClientHandler* handler = new myClientHandler(new FileCacheManager(7));
+//    MySerialServer server;
+//    server.open(5432, handler);
+
 
     //Test();
+    bestFirstTest();
     //bfsTest();
-    //breadthFirstSearch();
     return 0;
 }

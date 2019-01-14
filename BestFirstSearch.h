@@ -17,7 +17,9 @@
 using namespace std;
 
 template<class Node>
+
 class BestFirstSearch : public ISearcher<Node> {
+
     class StateCompare {
     public:
         bool operator()(State<Node> *left, State<Node> *right) {
@@ -29,6 +31,7 @@ class BestFirstSearch : public ISearcher<Node> {
     vector<State<Node>*> saveValues;
     vector<State<Node>*> closed;
     vector<State<Node>*> temp;
+
     priority_queue<State<Node>*, vector<State<Node>*>, StateCompare> openList;
 
 public:
@@ -49,10 +52,8 @@ public:
     void addToOpenList(State<Node>* state);
     int OpenListSize();
     virtual State<Node>* popOpenList();
-    vector<State<Node>*> backTrace();
     bool openContaines(State<Node>*);
     State<Node>* bringContaines(State<Node>* state);
-    virtual string to_string(vector<State<Node>*> res);
 };
 
 template<class Node>
@@ -69,8 +70,6 @@ vector<State<Node> *> BestFirstSearch<Node>::search(Searchable<Node> *searchable
     while (OpenListSize() > 0) {
         State<Node>* n = popOpenList(); // inherited from Searcher, removes the best state
         closed.push_back(n);
-        if (n == searchable->getGoalState())
-            return backTrace(); // private method, back traces through the parents
         //calling the delegated method, returns a list of states with n as a parent
         vector<State<Node> *> succerssors = searchable->getAllPossibleStates(n);
         typename vector<State<Node>*>::iterator it;
@@ -115,7 +114,7 @@ vector<State<Node> *> BestFirstSearch<Node>::search(Searchable<Node> *searchable
 
 template <class Node>
 void BestFirstSearch<Node>:: addToOpenList(State<Node>* state){
-    openList.push_back(state);
+    openList.push(state);
     saveValues.push_back(state);
     this->count++;
 }
@@ -130,37 +129,16 @@ State<Node>* BestFirstSearch<Node>:: popOpenList(){
     State<Node>* top = openList.top();
     openList.pop();
     auto it = saveValues.begin();
-    for(it;it != saveValues.end(); ++it){
-        if(top->Equal(*it)){
-            saveValues.remove(*it);
+    for(it; it != saveValues.end(); ++it){
+        if(top == (*it)){
+            saveValues.erase(it);
             break;
         }
     }
     return top;
 }
 
-template <class Node>
-vector<State<Node>*> BestFirstSearch<Node>::backTrace(){
-    list<State<Node>*> solution;
-    State<Node>* saveVal = this->closed.back();
-    State<Node>* saveTheDad = saveVal->getComeFrom();
-    solution.push_back(closed.back());
-    closed.pop_back();
-    while(!closed.empty()) {
-        State<Node>* cmper = closed.back();
 
-        if(cmper->Equal(saveTheDad)){
-            solution.push_back(cmper);
-            solution.pop_back();
-            saveVal = this->closed.back();
-            saveTheDad = saveVal->getComeFrom();
-        }else{
-            solution.pop_back();
-        }
-
-    }
-    return solution;
-}
 
 template <class Node>
 bool BestFirstSearch<Node>::openContaines(State<Node>* state){

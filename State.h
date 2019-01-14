@@ -9,7 +9,6 @@ private:
     double cost;    // price of the node
     State<Node>* come_from;
     bool is_visited;
-
     double shortestPathVal;
 
 
@@ -29,9 +28,9 @@ public:
         return (s.come_from == come_from && s.cost == cost && s.node == node);
     }
 
-//    bool& operator==(const State<Node> s){
-//        return (s.come_from == come_from && s.cost == cost && s.node == node);
-//    }
+    bool operator == (State<Node>* b) {
+        return shortestPathVal == b->getShortestPathVal();
+    }
 
     State<Node> & operator=(const State<Node>& s){
         this->node = s.getState();
@@ -80,7 +79,6 @@ public:
     void setShortestPathVal(double shortestPath) {
         shortestPathVal = shortestPath;
     }
-
 };
 
 #endif //CLIENT_SERVER_STATE_H
