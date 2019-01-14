@@ -5,13 +5,14 @@
 #include "Matrix.h"
 #include "Searchable.h"
 
+using namespace std;    // TODO
 class SearchableMatrix : public Searchable<std::pair<int, int>> {
     Matrix matrix;
     using Point = std::pair<int, int>;
     State<Point>* initial_state;
     Point entry_point;
     Point exit_point;
-    vector<Point> created_point;
+    std::vector<Point> created_point;
     State<Point>* goal_state;
 
 public:
@@ -65,6 +66,27 @@ public:
         return exit_point;
     }
 
+    bool check_bounds(Point p)  {
+        return p.first >= 0 && p.second >= 0 && p.first < matrix.getRow() && p.second < matrix.getCol();
+    }
+
+    std::vector<State<Point> *> getAllPossibleStates(State<Point> *mat_state, int)
+    {
+        std::vector<State<Point> *> pos_states;
+        Point possible_point = mat_state->getState();
+        // the state location
+        // the matrix bounds
+        // if it is possible to return current y position on the above row
+        list<Point> directions = {{0,1}, {1,0}, {-1,0}, {0,-1}};
+        for (auto& pnt : directions)    {
+            Point p = {possible_point.first + pnt.first, possible_point.second+pnt.second};
+            if (check_bounds(p) && matrix[p] != -1)    {
+                pos_states.push_back(new State<Point>(p, matrix[p]));
+            }
+        }
+
+        return pos_states;
+    }
     /**
      * Getter of the possible states
      * @param mat_state

@@ -60,13 +60,14 @@ void Test() {
 
 
 void bestFirstTest() {
-    string string_mat1 = "1,2,3 \n 4,5,6 \n 7,8,9 \n0,0\n2,2\nend";
+    string string_mat1 = "1,2,300 \n 4,5,6 \n 7,8,9 \n0,0\n2,2\nend";
     Separator separator(string_mat1);
     Matrix* matrix = separator.matrixCreator();
     Searchable<Point> *searchableMatrix = new SearchableMatrix(
             *matrix ,matrix->getP_start(),matrix->getP_goal());
     BestFirstSearch<Point>* b = new BestFirstSearch<Point>();
-    b->search(searchableMatrix);
+    auto state = b->search(searchableMatrix);
+    int i = 0;
 }
 
 
