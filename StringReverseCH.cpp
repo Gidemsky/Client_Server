@@ -34,9 +34,9 @@ void StringReverseCH::handleClient(int new_socket) {
         if (erez < 0) {
             perror("cannot read from client");
         }
-        client_line = buffer;
+        buffer[erez] = 0;
         //
-        buff += buffer;
+        buff += string(buffer);
         string retStReverse = solveProblem(buff);
         const char *ret = retStReverse.c_str();
         send(new_socket, ret, retStReverse.size(), 0);

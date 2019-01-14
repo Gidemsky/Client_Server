@@ -35,6 +35,8 @@ void MySerialServer::open(int port, ClientHandler *clientHandler) {
     address.sin_addr.s_addr = INADDR_ANY;
     address.sin_port = htons(port);
 
+    int n = 1;
+    setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, &n, sizeof(int));
     if (bind(server_fd, (struct sockaddr *) &address, sizeof(address)) == -1) {
         perror("socket bind");
         exit(1);

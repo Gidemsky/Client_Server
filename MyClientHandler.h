@@ -6,9 +6,23 @@
 #define CLIENT_SERVER_MYCLIENTHANDLER_H
 
 #include <unistd.h>
+#include "ClientHandler.h"
+#include "Stringable.h"
+#include "Solver.h"
+#include "ICacheManager.h"
 
-class myClientHandler {
+class myClientHandler : public ClientHandler {
+    Solver<string, string> *solver;
+    ICacheManager<Stringable, Stringable> *cacheManager;
+public:
+    myClientHandler(ICacheManager<Stringable, Stringable> *cacheManger)
+    {
 
+    }
+
+    string solveProblem(string &problem);
+
+    void handleClient(int sock) override;
 };
 
 

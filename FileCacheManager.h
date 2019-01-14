@@ -18,6 +18,9 @@ class FileCacheManager: public ICacheManager<Stringable,Stringable>{
     map<string,string> data;
     fstream file;
 public:
+    FileCacheManager(int)   {
+
+    }
     FileCacheManager(){
         loadToMap();
     }

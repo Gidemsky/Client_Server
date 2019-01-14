@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include "MySerialServer.h"
+#include "MyClientHandler.h"
 #include "StringReverseCH.h"
 #include "FileCacheManager.h"
 #include "Separator.h"
@@ -58,9 +59,12 @@ void Test() {
 }
 
 int main() {
+    ClientHandler* handler = new myClientHandler(new FileCacheManager(7));
+    MySerialServer server;
+    server.open(5432, handler);
+
     //Test();
     //bfsTest();
-    dfsTest();
     //breadthFirstSearch();
     return 0;
 }
