@@ -22,13 +22,12 @@
 #include <iostream>
 #include <netinet/in.h>
 
-#define END "end"
+#define FINISH_MAT "end"
 
 using Point = std::pair<int, int>;
 
 ClientHandler::ClientHandler(ICacheManager<Stringable, Stringable> *cacheManger) {
     this->cacheManager = cacheManger;
-
     //this->solver = new SolverSearcher
 }
 
@@ -38,7 +37,7 @@ void ClientHandler::handleClient(int new_sock) {
     ssize_t erez = 0;
     string buff, client_line;
     //reads from client as long as input is not stop
-    while (buff.find(END) == string::npos) {
+    while (buff.find(FINISH_MAT) == string::npos) {
         //pthread_mutex_lock(&lock);
         erez = read(new_sock, buffer, 256);
         if (erez < 0) {
@@ -51,7 +50,13 @@ void ClientHandler::handleClient(int new_sock) {
         buffer[erez] = 0;
         buff += string(buffer);
     }
-    solveProblem(buff);
+    string path_result = solveProblem(buff);
+    const char *chr = path_result.c_str();
+    int n = write(new_sock,chr,strlen(chr));
+    if (n<0){
+        perror("ERROR writing to the socket");
+        exit(1);
+    }
 }
 
 string ClientHandler::solveProblem(string &problem) {
