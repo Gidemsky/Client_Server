@@ -66,15 +66,17 @@ string ClientHandler::solveProblem(string &problem) {
     Searchable<Point> *searchableMatrix = new SearchableMatrix(
             *matrix ,matrix->getP_start(),matrix->getP_goal());
     string *solution;
-    //Searchable<Point> *searchable = cast_to_matrix(problem);
-//    Searcher<Point> *dfs = new DfsAlgo(((SearchableMatrix *) searchable)->getMatrix()->getNumOfVertex(),
-//                                       ((SearchableMatrix *) searchable)->getMatrix()->getNumOfColumns());
     ISearcher<Point> *bfs=new BestFirstSearch<Point>();
     this->solver = new SolverSearcher<Point>(bfs);
-    //Stringable *str_able = this->solver->solve(searchable);
-    //string b=str_able->makeString();
-//    reverse(b.begin(),b.end());
-//    solution=&b;
-//    this->cacheManager->save(str, str_able);
+    Stringable *sol = this->solver->solve(searchableMatrix);
+    string str_sol = sol->makeString();
+    solution = &str_sol;
+    this->cacheManager->save(str, sol);
     return *solution;
 }
+
+ICacheManager<Stringable, Stringable> *ClientHandler::getCacheManager() {
+    return this->cacheManager;
+}
+
+

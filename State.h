@@ -32,7 +32,7 @@ public:
         return shortestPathVal == b->getShortestPathVal();
     }
 
-    State<Node> & operator=(const State<Node>& s){
+    State<Node> & operator=(State<Node> s){
         this->node = s.getState();
         this->cost = s.getCost();
         this->come_from = s.getComeFrom();

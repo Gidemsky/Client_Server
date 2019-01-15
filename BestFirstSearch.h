@@ -15,7 +15,6 @@
 using namespace std;
 
 template<class Node>
-
 class BestFirstSearch : public ISearcher<Node> {
 
     class StateCompare {
@@ -38,7 +37,7 @@ public:
         this->count = 0;
     }
 
-    virtual vector<State<Node> *> search(Searchable<Node> *searchable);
+    virtual std::vector<State<Node> *> search(Searchable<Node> *searchable);
 
     virtual int getNumberOfNodesEvaluated() {
         return this->count;
@@ -52,7 +51,7 @@ template<class Node>
  * @param searchable
  * @return
  */
-vector<State<Node> *> BestFirstSearch<Node>::search(Searchable<Node> *searchable) {
+std::vector<State<Node> *> BestFirstSearch<Node>::search(Searchable<Node> *searchable) {
     closed.clear();
 
     openList.clear();

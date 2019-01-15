@@ -12,14 +12,16 @@
 #include "ICacheManager.h"
 #include "Searchable.h"
 
+using Point = std::pair<int, int>;
+
 class ClientHandler : public IClientHandler {
 
-    Solver<Searchable<std::pair<int,int>>* , std::vector <State<std::pair<int,int>*>>> *solver;
+    Solver<Searchable<Point>*, Stringable*> *solver;
     ICacheManager<Stringable, Stringable> *cacheManager;
 public:
     ClientHandler(ICacheManager<Stringable, Stringable> *cacheManger);
 
-    ICacheManager<Stringable, Stringable> *getCacheManager() const;
+    ICacheManager<Stringable, Stringable> *getCacheManager();
 
     string solveProblem(string &problem);
 

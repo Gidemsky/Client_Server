@@ -7,10 +7,11 @@
 
 #include "ISearcher.h"
 #include "Solver.h"
+#include "Stringable.h"
 #include <string>
 
 template <class Node>
-class SolverSearcher : public Solver<Searchable<Node> *, std::vector <State<Node>*>> {//class SolverSearcher : public Solver<class Problem, class Solution> {
+class SolverSearcher : public Solver<Searchable<Node>*, Stringable*> {
 private:
     ISearcher<Node>* s;
     int number_of_eval;
@@ -19,8 +20,10 @@ public:
         this->s=searcher;
     }
 
-    virtual std::vector <State<Node>*> solve(Searchable<Node>* problem){
-        return this->s->search(problem);
+    Stringable* solve(Searchable<Node>* problem){
+        vector<State<Node>*> result_points;
+        result_points = this->s->search(problem);
+        return result_points;
     }
 };
 

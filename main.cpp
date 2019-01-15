@@ -10,6 +10,8 @@
 #include "BFS.h"
 #include "BestFirstSearch.h"
 #include "DFS.h"
+#include "StringableMatrix.h"
+#include "SolverSearcher.h"
 
 using Point = std::pair<int, int>;
 string string_mat = "1,2,3,4|5,6,7,8|9,10,11,12|13,14,15,16|0,0|3,3|end";
@@ -60,14 +62,11 @@ void Test() {
 
 
 void bestFirstTest() {
-    string string_mat1 = "1,2,300 \n 4,5,6 \n 7,8,9 \n0,0\n2,2\nend";
-    Separator separator(string_mat1);
-    Matrix* matrix = separator.matrixCreator();
-    Searchable<Point> *searchableMatrix = new SearchableMatrix(
-            *matrix ,matrix->getP_start(),matrix->getP_goal());
-    BestFirstSearch<Point>* b = new BestFirstSearch<Point>();
-    auto state = b->search(searchableMatrix);
-    int i = 0;
+    string string_mat1 = "1,70,100,100 \n 70,100,9,10 \n 100,11,9,2 \n0,0\n2,3\nend";
+    ICacheManager<Stringable, Stringable> *cacheManager = new FileCacheManager();
+    ClientHandler *clnt_hand = new ClientHandler(cacheManager);
+    clnt_hand->solveProblem(string_mat1);
+
 }
 
 

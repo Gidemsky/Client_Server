@@ -35,8 +35,6 @@ public:
      * @return the initial state
      */
     State<Point>* getInitialState() const override {
-//        State<Point> *initial_state =
-//                new State<Point>();
         this->initial_state->setCost(matrix[entry_point]);
         this->initial_state->setState(entry_point);
         this->initial_state->setVisited(true);//TODO: check if needed
@@ -70,7 +68,7 @@ public:
         return p.first >= 0 && p.second >= 0 && p.first < matrix.getRow() && p.second < matrix.getCol();
     }
 
-    std::vector<State<Point> *> getAllPossibleStates(State<Point> *mat_state, int)
+    std::vector<State<Point> *> getAllPossibleStates(State<Point> *mat_state, int)//Plaster!!!
     {
         std::vector<State<Point> *> pos_states;
         Point possible_point = mat_state->getState();
