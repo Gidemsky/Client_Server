@@ -54,6 +54,7 @@ public:
 
                 if (second_node->getState() == searchable->getGoalNode()) {
                     save = second_node;
+                    return return_val = {save};
                 }
             }
         }
