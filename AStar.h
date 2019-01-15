@@ -37,6 +37,7 @@ public:
 
 template<class Node>
 std::vector<State<Node> *> AStar<Node>::search(Searchable<Node> *searchable) {
+
     vector<State<Node> *> closed;
     vector<State<Node> *> open;
 
@@ -55,6 +56,7 @@ std::vector<State<Node> *> AStar<Node>::search(Searchable<Node> *searchable) {
         }
 
         auto *mat = dynamic_cast<SearchableMatrix *>(searchable);
+        this->count++;
         for (State<Node> *&neighbor : mat->getAllPossibleStates(top, 3)) {
             neighbor->setComeFrom(top);
             neighbor->setCost(neighbor->getCost() + top->getCost());

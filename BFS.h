@@ -39,29 +39,26 @@ public:
         node->setVisited(true);
         // enqueue the node
         queue.push_back(node);
-        this->count++;
         while (!queue.empty()) {
             // Dequeue a vertex from queue
             node = queue.front();
             queue.pop_front();
             possible_states = searchable->getAllPossibleStates(node);
+            this->count++;
             for (int i = 0; i < possible_states.size(); i++) {
                 second_node = possible_states[i];
                 if (!second_node->isVisited()) {
                     second_node->setVisited(true);
                     second_node->setComeFrom(node);
                     queue.push_back(second_node);
-                    this->count++;
                 }
 
                 if (second_node->getState() == searchable->getGoalNode()) {
                     save = second_node;
-                    // TODO: backTrace
                 }
             }
         }
-        return_val.push_back(save);
-        //return return_val;TODO:
+        return return_val = {save};
     }
 
     /**

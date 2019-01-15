@@ -70,7 +70,7 @@ std::vector<State<Node> *> BestFirstSearch<Node>::search(Searchable<Node> *searc
         }
 
         auto *mat = dynamic_cast<SearchableMatrix *>(searchable);
-
+        this->count++;
         for (State<Node> *&neighbor : mat->getAllPossibleStates(top, 3)) {
             neighbor->setComeFrom(top);
             neighbor->setCost(neighbor->getCost() + top->getCost());

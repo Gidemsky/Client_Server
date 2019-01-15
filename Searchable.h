@@ -20,6 +20,7 @@ public:
     virtual State<Node> *getGoalState() const = 0;
 
     virtual std::vector<State<Node> *> getAllPossibleStates(State<Node> *) = 0; // TODO: Check if const is needed
+
 };
 
 #endif //CLIENT_SERVER_ISEARCHABLE_H

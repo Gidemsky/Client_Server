@@ -43,13 +43,13 @@ public:
             if (!node->isVisited()) {
                 node->setVisited(true);
             }
+            this->count++;
             possible_states = searchable->getAllPossibleStates(node);
             for (int i = 0; i < possible_states.size(); i++) {
                 second_node = possible_states[i];
                 if (!second_node->isVisited()) {
                     second_node->setComeFrom(node);
                     stack.push(second_node);
-                    this->count++;
                 }
 
                 if (second_node->getState() == searchable->getGoalNode()) {
@@ -57,8 +57,7 @@ public:
                 }
             }
         }
-        return_val.push_back(save);
-        //return return_val;TODO:
+        return return_val = {save};
     }
 
     /**
