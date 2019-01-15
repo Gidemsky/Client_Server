@@ -51,7 +51,7 @@ void ClientHandler::handleClient(int new_sock) {
         buffer[erez] = 0;
         buff += string(buffer);
     }
-    int i = 0;
+    solveProblem(buff);
 }
 
 string ClientHandler::solveProblem(string &problem) {

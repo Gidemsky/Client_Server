@@ -59,23 +59,8 @@ void Test() {
     string string_mat2 = "1,2,3,4|5,6,7,8|9,10,11,12|13,14,15,16|0,0|2,2|end";
     ParallelServer s = ParallelServer();
     ICacheManager<Stringable,Stringable>* cacheManager=new FileCacheManager();
-    IClientHandler *c = new StringReverseCH(cacheManager);
-    s.open(5400, c);
-//    pthread_exit(NULL);
-//    vector<vector<double>> v;
-//    vector<double> myV;
-//    int j = 0;
-//    for (double i = 0; i < 3; ++i) {
-//        for (j; j < 3; ++j) {
-//            myV.push_back(j);
-//        }
-//        v.push_back(myV);
-//    }
-    Separator separator(string_mat2);
-    Matrix* matrix = separator.matrixCreator();
-    SearchableMatrix* searchableMatrix;
-    searchableMatrix = new SearchableMatrix(
-            *matrix ,matrix->getP_start(),matrix->getP_goal());
+    IClientHandler *c = new ClientHandler(cacheManager);
+    s.open(5401, c);
 }
 
 
@@ -117,6 +102,7 @@ int main() {
     string mat1 = randMat(50, 50) + "\n 50, 50 \n end" ;
     string mat3 = "1,70,100,100 \n 70,100,9,10 \n 100,11,9,2 \n0,0\n2,3\nend";
     string mat = "6,6,9,1,11,3,5,2,4,-1\n-1,-1,3,8,1,3,1,7,4,2\n9,2,2,11,4,8,6,2,1,1\n-1,6,7,5,2,5,2,8,2,2\n1,-1,3,5,2,3,5,9,1,7\n11,7,7,-1,7,1,5,1,2,-1\n6,1,-1,1,6,11,7,3,7,1\n1,9,6,11,11,1,6,3,1,7\n1,5,-1,7,8,11,1,-1,5,4\n8,7,3,1,1,5,11,1,7,8\n 0,0 \n 7, 9 \n end";
+    Test();
     string mat2 = "1, 100, 1, 1, 1, 10 \n 1, 100, 1, 50, 1, 10 \n 1, 1, 10, 20, 1, 10 \n 1, 2, 2, 100, 1, 10 \n 10, 10, 10, 10, 10, 10\n0,0\n4, 5\nend";
     bestTest(mat);
     aStarTest(mat);
