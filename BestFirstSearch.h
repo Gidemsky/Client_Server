@@ -75,7 +75,6 @@ std::vector<State<Node> *> BestFirstSearch<Node>::search(Searchable<Node> *searc
             neighbor->setComeFrom(top);
             neighbor->setCost(neighbor->getCost() + top->getCost());
 
-
             if (find_if(closed.begin(), closed.end(), [neighbor](auto ptr) {
                 return ptr->getState() == neighbor->getState();
             }) != closed.end()) {

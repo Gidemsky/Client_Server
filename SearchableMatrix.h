@@ -27,6 +27,7 @@ public:
         this->entry_point = entry;
         this->exit_point = exit;
         this->initial_state = new State<Point>();
+        this->goal_state = new State<Point>();
         this->created_point.push_back(entry);
     }
 
@@ -38,6 +39,7 @@ public:
         this->initial_state->setCost(matrix[entry_point]);
         this->initial_state->setState(entry_point);
         this->initial_state->setVisited(true);//TODO: check if needed
+        this->initial_state->setHeuristic(this->getGoalState());
         return initial_state;
     }
 
@@ -45,6 +47,7 @@ public:
         this->goal_state->setCost(matrix[exit_point]);
         this->goal_state->setState(exit_point);
         this->goal_state->setVisited(false);
+        this->initial_state->setH();
         return goal_state;
     }
 
@@ -68,7 +71,7 @@ public:
         return p.first >= 0 && p.second >= 0 && p.first < matrix.getRow() && p.second < matrix.getCol();
     }
 
-    std::vector<State<Point> *> getAllPossibleStates(State<Point> *mat_state, int)//Plaster!!!
+    std::vector<State<Point> *> getAllPossibleStates(State<Point> *mat_state, int)
     {
         std::vector<State<Point> *> pos_states;
         Point possible_point = mat_state->getState();
@@ -79,7 +82,9 @@ public:
         for (auto& pnt : directions)    {
             Point p = {possible_point.first + pnt.first, possible_point.second+pnt.second};
             if (check_bounds(p) && matrix[p] != -1)    {
-                pos_states.push_back(new State<Point>(p, matrix[p]));
+                State<Point>* state =  new State<Point>(p, matrix[p]);
+                state->setHeuristic(this->getGoalState());
+                pos_states.push_back(state);
             }
         }
 

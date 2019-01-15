@@ -23,7 +23,7 @@ public:
     Stringable* solve(Searchable<Node>* problem){
         vector<State<Node>*> result_points;
         result_points = this->s->search(problem);
-        return result_points;
+//        return result_points;
     }
 };
 

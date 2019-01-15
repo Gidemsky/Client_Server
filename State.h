@@ -9,8 +9,7 @@ private:
     double cost;    // price of the node
     State<Node>* come_from;
     bool is_visited;
-    double shortestPathVal;
-
+    double h_score; // heuristic
 
 public:
     State() {
@@ -28,9 +27,6 @@ public:
         return (s.come_from == come_from && s.cost == cost && s.node == node);
     }
 
-    bool operator == (State<Node>* b) {
-        return shortestPathVal == b->getShortestPathVal();
-    }
 
     State<Node> & operator=(State<Node> s){
         this->node = s.getState();
@@ -72,12 +68,26 @@ public:
         this->is_visited = b;
     }
 
-    double getShortestPathVal(){
-        return shortestPathVal;
+    /**
+     * Setter of the heuristic
+     * @param goal
+     */
+    void setHeuristic(State<Node>* goal) {
+        int x = abs(this->getState().first - goal->getState().first);
+        int y = abs(this->getState().second - goal->getState().second);
+        this->h_score = x + y;
     }
 
-    void setShortestPathVal(double shortestPath) {
-        shortestPathVal = shortestPath;
+    void setH() {
+        this->h_score = 0;
+    }
+
+    /**
+     * Getter of the heuristic
+     * @return
+     */
+    double getHeuristic() {
+        return this->h_score;
     }
 };
 
