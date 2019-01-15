@@ -12,15 +12,9 @@ using namespace std;
 
 template<class Node>
 class BFS : public ISearcher<Node> {
-    int count;
+    int count = 0;
 
 public:
-    /**
-     * Ctor
-     */
-    BFS() {
-        this->count = 0;
-    }
 
     /**
      * The algorithm

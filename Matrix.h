@@ -24,7 +24,7 @@ public:
 
     using Point = std::pair<int, int>;
 
-    explicit Matrix(const MatrixVec &vec) {//added  "explicit" check what
+    explicit Matrix(const MatrixVec &vec) {
         this->_data = vec;
         setPointPairs();
         this->row = static_cast<int>(_data.size());

@@ -30,13 +30,6 @@ class BestFirstSearch : public ISearcher<Node> {
 
 public:
 
-    /**
-     * Ctor
-     */
-    BestFirstSearch() {
-        this->count = 0;
-    }
-
     virtual std::vector<State<Node> *> search(Searchable<Node> *searchable);
 
     virtual int getNumberOfNodesEvaluated() {
@@ -70,6 +63,7 @@ std::vector<State<Node> *> BestFirstSearch<Node>::search(Searchable<Node> *searc
         }
 
         auto *mat = dynamic_cast<SearchableMatrix *>(searchable);
+
         this->count++;
         for (State<Node> *&neighbor : mat->getAllPossibleStates(top, 3)) {
             neighbor->setComeFrom(top);

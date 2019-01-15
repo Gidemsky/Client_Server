@@ -1,6 +1,3 @@
-//
-// Created by gideon on 08/01/19.
-//
 
 #ifndef CLIENT_SERVER_ISEARCHABLE_H
 #define CLIENT_SERVER_ISEARCHABLE_H
@@ -19,7 +16,7 @@ public:
 
     virtual State<Node> *getGoalState() const = 0;
 
-    virtual std::vector<State<Node> *> getAllPossibleStates(State<Node> *) = 0; // TODO: Check if const is needed
+    virtual std::vector<State<Node> *> getAllPossibleStates(State<Node> *) = 0;
 
 };
 

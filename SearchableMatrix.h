@@ -5,10 +5,11 @@
 #include "Matrix.h"
 #include "Searchable.h"
 
-using namespace std;    // TODO
+using namespace std;
+
 class SearchableMatrix : public Searchable<std::pair<int, int>> {
-    Matrix matrix;
     using Point = std::pair<int, int>;
+    Matrix matrix;
     State<Point>* initial_state;
     Point entry_point;
     Point exit_point;
@@ -43,6 +44,10 @@ public:
         return initial_state;
     }
 
+    /**
+     * Getter of the goal state
+     * @return the goal state
+     */
     State<Point>* getGoalState() const override {
         this->goal_state->setCost(matrix[exit_point]);
         this->goal_state->setState(exit_point);
@@ -67,13 +72,24 @@ public:
         return exit_point;
     }
 
+    /**
+     * Check the bounds of the point. if the point in bounds
+     * return true, otherwise false.
+     * @param p is the point
+     * @return true or false
+     */
     bool check_bounds(Point p)  {
         return p.first >= 0 && p.second >= 0 && p.first < matrix.getRow() && p.second < matrix.getCol();
     }
 
-    std::vector<State<Point> *> getAllPossibleStates(State<Point> *mat_state, int)
+    /**
+     * Getter of the possible states of a state.
+     * @param mat_state is the state to find his possible states.
+     * @return vector of all the possible states.
+     */
+    vector<State<Point> *> getAllPossibleStates(State<Point> *mat_state, int)
     {
-        std::vector<State<Point> *> pos_states;
+        vector<State<Point> *> pos_states;
         Point possible_point = mat_state->getState();
         // the state location
         // the matrix bounds
@@ -87,7 +103,6 @@ public:
                 pos_states.push_back(state);
             }
         }
-
         return pos_states;
     }
     /**
@@ -109,7 +124,8 @@ public:
         // if it is possible to return current y position on the above row
         if (x_pos > 0) {
             possible_point = Point(x_pos - 1, y_pos);
-            if(std::find(this->created_point.begin(), this->created_point.end(),possible_point)==this->created_point.end()){
+            if (std::find(this->created_point.begin(), this->created_point.end(), possible_point) ==
+                this->created_point.end()) {
                 if (matrix[possible_point] >= 0) {
                     state = new State<Point>(possible_point, this->matrix[possible_point]);
                     pos_states.push_back(state);
@@ -120,7 +136,8 @@ public:
         // next row
         if (x_pos < last_x_pos) {
             possible_point = Point(x_pos + 1, y_pos);
-            if(std::find(this->created_point.begin(), this->created_point.end(),possible_point)==this->created_point.end()) {
+            if (std::find(this->created_point.begin(), this->created_point.end(), possible_point) ==
+                this->created_point.end()) {
                 if (matrix[possible_point] >= 0) {
                     state = new State<Point>(possible_point, this->matrix[possible_point]);
                     pos_states.push_back(state);
@@ -131,7 +148,8 @@ public:
         // prev col
         if (y_pos > 0) {
             possible_point = Point(x_pos, y_pos - 1);
-            if(std::find(this->created_point.begin(), this->created_point.end(),possible_point)==this->created_point.end()) {
+            if (std::find(this->created_point.begin(), this->created_point.end(), possible_point) ==
+                this->created_point.end()) {
                 if (matrix[possible_point] >= 0) {
                     state = new State<Point>(possible_point, this->matrix[possible_point]);
                     pos_states.push_back(state);
@@ -142,7 +160,8 @@ public:
         // next col
         if (y_pos < last_y_pos) {
             possible_point = Point(x_pos, y_pos + 1);
-            if(std::find(this->created_point.begin(), this->created_point.end(),possible_point)==this->created_point.end()) {
+            if (std::find(this->created_point.begin(), this->created_point.end(), possible_point) ==
+                this->created_point.end()) {
                 if (matrix[possible_point] >= 0) {
                     state = new State<Point>(possible_point, this->matrix[possible_point]);
                     pos_states.push_back(state);
@@ -153,7 +172,5 @@ public:
         return pos_states;
     }
 };
-
-
 
 #endif //CLIENT_SERVER_SEARCHABLEMATRIX_H

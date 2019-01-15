@@ -1,6 +1,3 @@
-//
-// Created by gideon on 08/01/19.
-//
 
 #ifndef CLIENT_SERVER_SEPARATER_H
 #define CLIENT_SERVER_SEPARATER_H
@@ -19,8 +16,10 @@ class Separator {
     vector<vector<double>> mat_assigned_data;
 public:
     Separator(string user_input);
-    void valueParser(string& strData, string strSpliter);
-    Matrix* matrixCreator();
+
+    void valueParser(string &str_data, string spliter);
+
+    Matrix *matrixCreator();
 };
 
 #endif //CLIENT_SERVER_SEPARATER_H

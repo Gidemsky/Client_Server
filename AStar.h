@@ -1,6 +1,3 @@
-//
-// Created by benda on 12/01/19.
-//
 
 #ifndef CLIENT_SERVER_ASTAR_H
 #define CLIENT_SERVER_ASTAR_H
@@ -22,16 +19,15 @@ class AStar : public ISearcher<Node> {
                    right->getCost() + right->getHeuristic();
         }
     };
+
     using Point = pair<int, int>;
     Searchable<Node> *searchable;
     int count = 0;
 
 public:
-    virtual  std::vector<State<Node> *> search(Searchable<Node> *searchable);
+    virtual std::vector<State<Node> *> search(Searchable<Node> *searchable);
 
     virtual int getNumberOfNodesEvaluated();
-
-    //virtual double distance(State<Point> *start, State<Point> *goal);
 
 };
 

@@ -1,33 +1,32 @@
-//
-// Created by gideon on 15/01/19.
-//
 
 #include <algorithm>
 #include "Solution.h"
 
-Solution::Solution(vector<State<Point>*> vec){
-    this->path_vector=vec;
+Solution::Solution(vector<State<Point> *> vec) {
+    this->path_vector = vec;
 }
-string Solution::makeString(){
+
+string Solution::makeString() {
     return this->getPath();
 }
-string Solution::getPath(){//TODO:check recrution solution
-    vector<State<Point>*> points;
-    //creates all-in-one vector of the points
-    while(this->path_vector.front()->getComeFrom()!= nullptr){
+
+string Solution::getPath() {
+    vector<State<Point> *> points;
+    // creates all-in-one vector of the points
+    while (this->path_vector.front()->getComeFrom() != nullptr) {
         points.push_back(this->path_vector.front());
-        this->path_vector[0]=this->path_vector.front()->getComeFrom();
+        this->path_vector[0] = this->path_vector.front()->getComeFrom();
     }
-    //addes the last one to the vector
+    // adds the last one to the vector
     points.push_back(this->path_vector.front());
-    reverse(points.begin(),points.end());
-    string path="";
-    //prints the path with the keys: "Up\Down\Left\Right"
-    for (int i = 0; i < points.size()-1; ++i) {
+    reverse(points.begin(), points.end());
+    string path = "";
+    // prints the path with the keys: "Up\Down\Left\Right"
+    for (int i = 0; i < points.size() - 1; ++i) {
         int i1 = points.at(i)->getState().first;
         int j1 = points.at(i)->getState().second;
-        int i2 = points.at(i+1)->getState().first;
-        int j2 = points.at(i+1)->getState().second;
+        int i2 = points.at(i + 1)->getState().first;
+        int j2 = points.at(i + 1)->getState().second;
         if ((i1 == i2) && (j1 == (j2 + 1))) {
             path += "Left,";
         } else if ((i1 == i2) && (j1 == (j2 - 1))) {
@@ -38,6 +37,5 @@ string Solution::getPath(){//TODO:check recrution solution
             path += "Down,";
         }
     }
-    //turns the stirng
     return path;
 }

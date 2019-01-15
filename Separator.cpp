@@ -1,14 +1,9 @@
-//
-// Created by gideon on 08/01/19.
-//
 
 #include "Separator.h"
-
 #include <algorithm>
 #include <list>
 
 #define VAL_SPLITER ","
-#define LINE_SPLITER "|"
 #define LINE_CLIENT_SPLITER "\n"
 
 /**
@@ -19,35 +14,32 @@ Separator::Separator(string user_input) {
     this->user_input = user_input;
 }
 
-void Separator::valueParser(string& strData, string strSpliter) {
+void Separator::valueParser(string &str_data, string spliter) {
     vector<double> line_vals;
-    string lineData = strData;
+    string lineData = str_data;
     size_t pos = 0;
-    string unsaperated_vals;
-    if (strSpliter == LINE_CLIENT_SPLITER) {
-        while ((pos = lineData.find(strSpliter)) != string::npos) {
-            unsaperated_vals = lineData.substr(0, pos);
-            valueParser(unsaperated_vals, VAL_SPLITER);
+    string source;
+    if (spliter == LINE_CLIENT_SPLITER) {
+        while ((pos = lineData.find(spliter)) != string::npos) {
+            source = lineData.substr(0, pos);
+            valueParser(source, VAL_SPLITER);
             lineData.erase(0, pos + 1);
         }
-        //line_vals.push_back(lineData);
-        //valueParser(lineData, VAL_SPLITER);
     } else {
-        while ((pos = lineData.find(strSpliter)) != string::npos) {
-            unsaperated_vals = lineData.substr(0, pos);
-            line_vals.push_back(stod(unsaperated_vals));
+        while ((pos = lineData.find(spliter)) != string::npos) {
+            source = lineData.substr(0, pos);
+            line_vals.push_back(stod(source));
             lineData.erase(0, pos + 1);
         }
-        unsaperated_vals = lineData.substr(0, pos);
-        if (unsaperated_vals != "end") {
-            line_vals.push_back(stod(unsaperated_vals));
+        source = lineData.substr(0, pos);
+        if (source != "end") {
+            line_vals.push_back(stod(source));
             this->mat_assigned_data.push_back(line_vals);
         }
     }
 }
 
-Matrix* Separator::matrixCreator(){
+Matrix *Separator::matrixCreator() {
     valueParser(this->user_input, LINE_CLIENT_SPLITER);
     return new Matrix(this->mat_assigned_data);
-}//TODO: how to return template of data struct (this case is MATRIX)?
-
+}
