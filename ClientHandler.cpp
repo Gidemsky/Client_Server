@@ -7,6 +7,8 @@
 #include "StringableMatrix.h"
 #include "Separator.h"
 #include "SearchableMatrix.h"
+#include "BestFirstSearch.h"
+#include "SolverSearcher.h"
 #include <iostream>
 #include <sys/types.h>
 #include <algorithm>
@@ -23,6 +25,12 @@
 #define END "end"
 
 using Point = std::pair<int, int>;
+
+ClientHandler::ClientHandler(ICacheManager<Stringable, Stringable> *cacheManger) {
+    this->cacheManager = cacheManger;
+
+    //this->solver = new SolverSearcher
+}
 
 void ClientHandler::handleClient(int new_sock) {
     //TO DO : WHAT IS THE SIZE OF INPUT?
@@ -43,11 +51,30 @@ void ClientHandler::handleClient(int new_sock) {
         buffer[erez] = 0;
         buff += string(buffer);
     }
-    Separator separator(buff);
-    Matrix* matrix = separator.matrixCreator();
-    Searchable<Point> *searchableMatrix = new SearchableMatrix(
-            *matrix ,matrix->getP_start(),matrix->getP_goal());
     int i = 0;
 //    DFS<Point> *dfs = new DFS<Point>();
 //    dfs->search(searchableMatrix);
+}
+
+string ClientHandler::solveProblem(string &problem) {
+    Stringable *str = new StringableMatrix(problem);
+    if (this->getCacheManager()->isProblemExist(str)) {
+        return this->getCacheManager()->search(str)->makeString();
+    }
+    Separator separator(problem);
+    Matrix* matrix = separator.matrixCreator();
+    Searchable<Point> *searchableMatrix = new SearchableMatrix(
+            *matrix ,matrix->getP_start(),matrix->getP_goal());
+    string *solution;
+    //Searchable<Point> *searchable = cast_to_matrix(problem);
+//    Searcher<Point> *dfs = new DfsAlgo(((SearchableMatrix *) searchable)->getMatrix()->getNumOfVertex(),
+//                                       ((SearchableMatrix *) searchable)->getMatrix()->getNumOfColumns());
+    ISearcher<Point> *bfs=new BestFirstSearch<Point>();
+    this->solver = new SolverSearcher<Point>(bfs);
+    //Stringable *str_able = this->solver->solve(searchable);
+    //string b=str_able->makeString();
+//    reverse(b.begin(),b.end());
+//    solution=&b;
+//    this->cacheManager->save(str, str_able);
+    return *solution;
 }

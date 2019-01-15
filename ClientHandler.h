@@ -10,15 +10,16 @@
 #include "Stringable.h"
 #include "Solver.h"
 #include "ICacheManager.h"
+#include "Searchable.h"
 
 class ClientHandler : public IClientHandler {
-    Solver<string, string> *solver;
+
+    Solver<Searchable<std::pair<int,int>>* , std::vector <State<std::pair<int,int>*>>> *solver;
     ICacheManager<Stringable, Stringable> *cacheManager;
 public:
-    ClientHandler(ICacheManager<Stringable, Stringable> *cacheManger)
-    {
+    ClientHandler(ICacheManager<Stringable, Stringable> *cacheManger);
 
-    }
+    ICacheManager<Stringable, Stringable> *getCacheManager() const;
 
     string solveProblem(string &problem);
 

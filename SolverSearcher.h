@@ -10,13 +10,28 @@
 #include <string>
 
 template <class Node>
-class SolverSearcher : public Solver<class Problem, class Solution> {
+class SolverSearcher : public Solver<Searchable<Node> *, std::vector <State<Node>*>> {//class SolverSearcher : public Solver<class Problem, class Solution> {
 private:
     ISearcher<Node>* s;
+    int number_of_eval;
 public:
-    virtual std::string solve(Searchable<Node>* problem){
+    SolverSearcher(ISearcher<Node>* searcher){
+        this->s=searcher;
+    }
+
+    virtual std::vector <State<Node>*> solve(Searchable<Node>* problem){
         return this->s->search(problem);
     }
 };
+
+//class SolverSearcher: public Solver<Searchable<Node>* ,Stringable*>{
+//public:
+//    SolverSearcher(Searcher<Point>* searcher){
+//        this->searcher=searcher;
+//    }
+//    Stringable* solve(Searchable<Point>* searchable) override{
+//        return this->searcher->search( searchable);
+//    }
+//};
 
 #endif //CLIENT_SERVER_SOLVERSEARCHER_H
