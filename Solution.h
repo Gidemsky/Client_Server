@@ -9,11 +9,11 @@
 #include "ClientHandler.h"
 
 class Solution : public Stringable{
-    vector<State<Point>> path_vector;
+    vector<State<Point>*> path_vector;
 public:
-    Solution(vector<State<Point>> vec);
+    Solution(vector<State<Point>*> vec);
     string makeString() override;
-    string getPath(vector<State<Point>*> path_vec);
+    string getPath();
 };
 
 

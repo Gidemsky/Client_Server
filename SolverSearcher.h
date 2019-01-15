@@ -8,6 +8,7 @@
 #include "ISearcher.h"
 #include "Solver.h"
 #include "Stringable.h"
+#include "Solution.h"
 #include <string>
 
 template <class Node>
@@ -20,10 +21,12 @@ public:
         this->s=searcher;
     }
 
-    Stringable* solve(Searchable<Node>* problem){
+    virtual Stringable* solve(Searchable<Node>* problem){
         vector<State<Node>*> result_points;
         result_points = this->s->search(problem);
-//        return result_points;
+        Solution *solution = new Solution(result_points);
+        //return solution->getPath(result_points);
+        return solution;
     }
 };
 

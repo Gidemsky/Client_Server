@@ -52,8 +52,6 @@ void ClientHandler::handleClient(int new_sock) {
         buff += string(buffer);
     }
     int i = 0;
-//    DFS<Point> *dfs = new DFS<Point>();
-//    dfs->search(searchableMatrix);
 }
 
 string ClientHandler::solveProblem(string &problem) {
