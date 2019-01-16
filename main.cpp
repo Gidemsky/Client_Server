@@ -33,16 +33,15 @@ string randMat (int row, int col){
     return mat;
 }
 void dfsTest(string mat) {
-    //string string_mat1 = "1,2,3|4,5,6|7,8,9|0,0|2,2|end";
+
     Separator separator(mat);
     Matrix* matrix = separator.matrixCreator();
     Searchable<Point> *searchableMatrix = new SearchableMatrix(
             *matrix ,matrix->getP_start(),matrix->getP_goal());
-    DFS<Point> *dfs = new DFS<Point>();
-    auto t = dfs->search(searchableMatrix);
-    cout << "DFS: " << dfs->getNumberOfNodesEvaluated() << endl;
-    cout << "Cost: "<< t[0]->getCost() << endl;
-
+    AStar<Point> *a = new AStar<Point>();
+    auto t = a->search(searchableMatrix);
+    int zibi = 0;
+    cout  << t[0]->getCost() << "," << a->getNumberOfNodesEvaluated() << endl;
 }
 
 void bfsTest(string mat) {
@@ -53,8 +52,8 @@ void bfsTest(string mat) {
             *matrix ,matrix->getP_start(),matrix->getP_goal());
     BFS<Point> *bfs = new BFS<Point>();
     auto t = bfs->search(searchableMatrix);
-    cout << "BFS: " << bfs->getNumberOfNodesEvaluated() << endl;
-    cout << "Cost: "<< t[0]->getCost() << endl;
+    cout  << t[0]->getCost() << "," << bfs->getNumberOfNodesEvaluated() << endl;
+
 
 }
 
@@ -77,15 +76,18 @@ void solutionTest() {
 
 //template <class Node>
 void aStarTest(string mat) {
+    //string string_mat1 = "1,2,3|4,5,6|7,8,9|0,0|2,2|end";
     Separator separator(mat);
     Matrix* matrix = separator.matrixCreator();
     Searchable<Point> *searchableMatrix = new SearchableMatrix(
             *matrix ,matrix->getP_start(),matrix->getP_goal());
-    AStar<Point> *a = new AStar<Point>();
-    auto t = a->search(searchableMatrix);
-    int zibi = 0;
-    cout << "A*: " << a->getNumberOfNodesEvaluated() << endl;
-    cout << "Cost: "<< t[0]->getCost() << endl;
+    DFS<Point> *dfs = new DFS<Point>();
+    auto t = dfs->search(searchableMatrix);
+    cout  << t[0]->getCost() << "," << dfs->getNumberOfNodesEvaluated() << endl;
+
+
+
+
 
 }
 
@@ -98,8 +100,8 @@ void bestTest(string mat) {
     BestFirstSearch<Point> *a = new BestFirstSearch<Point>();
     auto t = a->search(searchableMatrix);
     int zibi = 0;
-    cout << "BestFirst: " << a->getNumberOfNodesEvaluated() << endl;
-    cout << "Cost: "<< t[0]->getCost() << endl;
+    cout  << t[0]->getCost() << "," << a->getNumberOfNodesEvaluated() << endl;
+
 
 }
 
@@ -146,7 +148,7 @@ int main() {
                      "14,14 \n";
 
 
-    //20x20
+    //20x20/
     string input20 = "2,10,-1,7,5,7,10,-1,-1,1,2,7,2,7,11,10,-1,6,4,4\n"
                      "11,8,3,9,2,2,2,7,7,7,5,6,6,6,5,3,1,4,7,10\n"
                      "9,9,9,11,8,1,2,8,11,6,5,10,7,8,8,9,2,2,4,1\n"
