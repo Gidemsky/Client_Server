@@ -48,11 +48,6 @@ void ParallelServer::open(int port, IClientHandler *clientHandler) {
     }
 
     start(server_fd, clientHandler);
-//    rc = pthread_create(&thread, nullptr, start, my_thread_data);
-//    if (rc) {
-//        cout << "Error! unable to create thread";
-//        exit(1);
-//    }
 }
 
 bool ParallelServer::stop() {
@@ -77,7 +72,7 @@ void ParallelServer::start(int server_sock, IClientHandler *ch) {
 
     int new_socket;
     while (true) {
-        timeout.tv_sec = 0;
+        timeout.tv_sec = 10;
         timeout.tv_usec = 0;
         setsockopt(server_sock, SOL_SOCKET, SO_RCVTIMEO, (char *) &timeout, sizeof(timeout));
         if ((new_socket = accept(server_sock,
@@ -90,8 +85,8 @@ void ParallelServer::start(int server_sock, IClientHandler *ch) {
             perror("accept");
             exit(EXIT_FAILURE);
         }
+        cout<<"accept"<<endl;
         setsockopt(new_socket, SOL_SOCKET, SO_RCVTIMEO, (char *) &timeout, sizeof(timeout));
-
         auto data = new thread_data;
         data->ch = ch;
         data->sock = new_socket;
@@ -100,15 +95,15 @@ void ParallelServer::start(int server_sock, IClientHandler *ch) {
             perror("error on creating thread");
             exit(1);
         }
-
         threads_stack.push(trid);
-
     }
 
     while (!threads_stack.empty()) {
         pthread_join(threads_stack.top(), nullptr);
         threads_stack.pop();
     }
+    cout<<"check"<<endl;
+
 
     close(server_sock);
 }

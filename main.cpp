@@ -15,9 +15,10 @@
  */
 int main(int argc, char *argv[]) {
     int port = atoi(argv[PORT]);
-    ParallelServer* server = new ParallelServer();
-    FileCacheManager *cache= new FileCacheManager();
+    ParallelServer server = ParallelServer();
+    ICacheManager<Stringable,Stringable> *cache= new FileCacheManager();
     ClientHandler* client_handler = new ClientHandler(cache);
-    server->open(port, client_handler);
+    server.open(port, client_handler);
+    cache->saveMap();
     return 0;
 }

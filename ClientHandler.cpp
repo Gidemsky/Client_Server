@@ -28,7 +28,6 @@ using Point = std::pair<int, int>;
 
 ClientHandler::ClientHandler(ICacheManager<Stringable, Stringable> *cacheManger) {
     this->cacheManager = cacheManger;
-    //this->solver = new SolverSearcher
 }
 
 void ClientHandler::handleClient(int new_sock) {
@@ -52,7 +51,7 @@ void ClientHandler::handleClient(int new_sock) {
     }
     string path_result = solveProblem(buff);
     const char *chr = path_result.c_str();
-    int n = write(new_sock,chr,strlen(chr));
+    int n = static_cast<int>(write(new_sock, chr, strlen(chr)));
     if (n<0){
         perror("ERROR writing to the socket");
         exit(1);
@@ -61,6 +60,7 @@ void ClientHandler::handleClient(int new_sock) {
 
 string ClientHandler::solveProblem(string &problem) {
     Stringable *str = new StringableMatrix(problem);
+    //checks if the solutioh exist TODO:check if it works
     if (this->getCacheManager()->isProblemExist(str)) {
         return this->getCacheManager()->search(str)->makeString();
     }
@@ -68,14 +68,12 @@ string ClientHandler::solveProblem(string &problem) {
     Matrix* matrix = separator.matrixCreator();
     Searchable<Point> *searchableMatrix = new SearchableMatrix(
             *matrix ,matrix->getP_start(),matrix->getP_goal());
-    string *solution;
     ISearcher<Point> *bfs=new BestFirstSearch<Point>();
     this->solver = new SolverSearcher<Point>(bfs);
     Stringable *sol = this->solver->solve(searchableMatrix);
     string str_sol = sol->makeString();
-    solution = &str_sol;
     this->cacheManager->save(str, sol);
-    return *solution;
+    return str_sol;
 }
 
 ICacheManager<Stringable, Stringable> *ClientHandler::getCacheManager() {

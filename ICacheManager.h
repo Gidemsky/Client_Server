@@ -13,6 +13,8 @@ public:
     virtual bool isProblemExist(Problem* problem)=0;
 
     virtual Solution* search(Problem* problem) = 0;
+
+    virtual void saveMap() = 0;
 };
 
 #endif //CLIENT_SERVER_CACHEMANAGER_H

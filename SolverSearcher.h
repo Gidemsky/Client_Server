@@ -25,19 +25,8 @@ public:
         vector<State<Node>*> result_points;
         result_points = this->s->search(problem);
         Solution *solution = new Solution(result_points);
-        //return solution->getPath(result_points);
         return solution;
     }
 };
-
-//class SolverSearcher: public Solver<Searchable<Node>* ,Stringable*>{
-//public:
-//    SolverSearcher(Searcher<Point>* searcher){
-//        this->searcher=searcher;
-//    }
-//    Stringable* solve(Searchable<Point>* searchable) override{
-//        return this->searcher->search( searchable);
-//    }
-//};
 
 #endif //CLIENT_SERVER_SOLVERSEARCHER_H

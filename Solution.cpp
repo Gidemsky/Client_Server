@@ -11,14 +11,15 @@ string Solution::makeString() {
 }
 
 string Solution::getPath() {
+    vector<State<Point>*> temp_solution_vec = this->path_vector;
     vector<State<Point> *> points;
     // creates all-in-one vector of the points
-    while (this->path_vector.front()->getComeFrom() != nullptr) {
-        points.push_back(this->path_vector.front());
-        this->path_vector[0] = this->path_vector.front()->getComeFrom();
+    while (temp_solution_vec.front()->getComeFrom() != nullptr) {
+        points.push_back(temp_solution_vec.front());
+        temp_solution_vec[0] = temp_solution_vec.front()->getComeFrom();
     }
     // adds the last one to the vector
-    points.push_back(this->path_vector.front());
+    points.push_back(temp_solution_vec.front());
     reverse(points.begin(), points.end());
     string path = "";
     // prints the path with the keys: "Up\Down\Left\Right"

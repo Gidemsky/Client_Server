@@ -28,7 +28,6 @@ bool FileCacheManager::isProblemExist(Stringable *problem) {
 }
 
 Stringable *FileCacheManager::search(Stringable *problem) {
-
     if (isProblemExist(problem)) {
         return new StringableMatrix(this->data.at(problem->makeString()));
     }
@@ -36,7 +35,7 @@ Stringable *FileCacheManager::search(Stringable *problem) {
 
 void FileCacheManager::loadToMap() {
     this->file = fstream();
-    this->file.open("blut.txt", ios::in|ios::out);
+    this->file.open("problem_solution.txt", ios::in|ios::out);
     if (!this->file) perror("cannot open file!");
     string line;
     bool isProblem = true;
@@ -61,7 +60,7 @@ void FileCacheManager::loadToMap() {
 }
 
 void FileCacheManager::saveMap() {
-    this->file.open("blut.txt", ios::app);
+    this->file.open("problem_solution.txt", ios::app);
     for (pair<string, string> pr_sl:this->data) {
         saveObjectInFile(pr_sl.first, pr_sl.second);
     }
