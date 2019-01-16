@@ -3,20 +3,6 @@
 //
 
 #include "ParallelServer.h"
-#include <iostream>
-#include <sys/types.h>
-#include <algorithm>
-#include <unistd.h>
-#include <list>
-#include <sys/socket.h>
-#include <netdb.h>
-#include <arpa/inet.h>
-#include <string.h>
-#include <cerrno>
-#include <stack>
-#include <string>
-#include <iostream>
-#include <netinet/in.h>
 
 using namespace std;
 

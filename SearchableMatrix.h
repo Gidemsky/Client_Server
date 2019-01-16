@@ -15,6 +15,7 @@ class SearchableMatrix : public Searchable<std::pair<int, int>> {
     Point exit_point;
     std::vector<Point> created_point;
     State<Point>* goal_state;
+    vector<State<Point>*> states;
 
 public:
     /**
@@ -101,10 +102,12 @@ public:
                 State<Point>* state =  new State<Point>(p, matrix[p]);
                 state->setHeuristic(this->getGoalState());
                 pos_states.push_back(state);
+                this->states.push_back(state);
             }
         }
         return pos_states;
     }
+
     /**
      * Getter of the possible states
      * @param mat_state
@@ -130,6 +133,7 @@ public:
                     state = new State<Point>(possible_point, this->matrix[possible_point]);
                     pos_states.push_back(state);
                     this->created_point.push_back(possible_point);
+                    this->states.push_back(state);
                 }
             }
         }
@@ -142,6 +146,7 @@ public:
                     state = new State<Point>(possible_point, this->matrix[possible_point]);
                     pos_states.push_back(state);
                     this->created_point.push_back(possible_point);
+                    this->states.push_back(state);
                 }
             }
         }
@@ -154,6 +159,7 @@ public:
                     state = new State<Point>(possible_point, this->matrix[possible_point]);
                     pos_states.push_back(state);
                     this->created_point.push_back(possible_point);
+                    this->states.push_back(state);
                 }
             }
         }
@@ -166,10 +172,22 @@ public:
                     state = new State<Point>(possible_point, this->matrix[possible_point]);
                     pos_states.push_back(state);
                     this->created_point.push_back(possible_point);
+                    this->states.push_back(state);
                 }
             }
         }
         return pos_states;
+    }
+
+    /**
+     * Destructor
+     */
+    ~SearchableMatrix() {
+        for (int i = 0; i < this->states.size(); i++) {
+            delete this->states[i];
+        }
+        delete initial_state;
+        delete goal_state;
     }
 };
 
