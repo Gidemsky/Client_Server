@@ -1,6 +1,3 @@
-//
-// Created by gideon on 11/01/19.
-//
 
 #include "StringableMatrix.h"
 

@@ -62,6 +62,7 @@ string ClientHandler::solveProblem(string &problem) {
     Stringable *str = new StringableMatrix(problem);
     //checks if the solutioh exist TODO:check if it works
     if (this->getCacheManager()->isProblemExist(str)) {
+        cout << "readed from file!" << endl;
         return this->getCacheManager()->search(str)->makeString();
     }
     Separator separator(problem);
@@ -73,6 +74,7 @@ string ClientHandler::solveProblem(string &problem) {
     Stringable *sol = this->solver->solve(searchableMatrix);
     string str_sol = sol->makeString();
     this->cacheManager->save(str, sol);
+    delete bfs;
     delete searchableMatrix;
     return str_sol;
 }

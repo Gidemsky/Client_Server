@@ -22,6 +22,10 @@ public:
     string solveProblem(string &problem);
 
     void handleClient(int sock) override;
+
+    ~ClientHandler() {
+        delete this->solver;
+    }
 };
 
 

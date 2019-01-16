@@ -2,7 +2,6 @@
 #ifndef CLIENT_SERVER_SOLUTION_H
 #define CLIENT_SERVER_SOLUTION_H
 
-
 #include "ClientHandler.h"
 
 class Solution : public Stringable {
