@@ -34,9 +34,10 @@ bool FileCacheManager::isProblemExist(Stringable *problem) {
 
 Stringable *FileCacheManager::search(Stringable *problem) {
     if (isProblemExist(problem)) {
-        return new StringableMatrix(this->data.at(problem->makeString()));
+        string str = problem->makeString();
+        delete problem;
+        return new StringableMatrix(this->data.at(str));
     }
-    delete problem;
 }
 
 void FileCacheManager::loadToMap() {

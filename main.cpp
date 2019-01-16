@@ -20,5 +20,6 @@ int main(int argc, char *argv[]) {
     ClientHandler* client_handler = new ClientHandler(cache);
     server.open(port, client_handler);
     cache->saveMap();
+    delete client_handler;
     return 0;
 }
