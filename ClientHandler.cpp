@@ -73,6 +73,7 @@ string ClientHandler::solveProblem(string &problem) {
     Stringable *sol = this->solver->solve(searchableMatrix);
     string str_sol = sol->makeString();
     this->cacheManager->save(str, sol);
+    delete searchableMatrix;
     return str_sol;
 }
 
