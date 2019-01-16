@@ -5,25 +5,17 @@
 #include <vector>
 
 class Matrix {
-    int row, col;
+    using Point = std::pair<int, int>;
     using MatrixVec = std::vector<std::vector<double>>;
+    int row, col;
     MatrixVec _data;
     std::pair<int, int> p_start, p_goal;
+
 public:
-    const MatrixVec &get_data() const {
-        return _data;
-    }
-
-    const std::pair<int, int> &getP_start() const {
-        return p_start;
-    }
-
-    const std::pair<int, int> &getP_goal() const {
-        return p_goal;
-    }
-
-    using Point = std::pair<int, int>;
-
+    /**
+     * Ctor
+     * @param vec
+     */
     explicit Matrix(const MatrixVec &vec) {
         this->_data = vec;
         setPointPairs();
@@ -31,8 +23,33 @@ public:
         this->col = static_cast<int>(_data.front().size());
     }
 
+    /**
+     * Ctor
+     */
     Matrix() {}
+    const MatrixVec &get_data() const {
+        return _data;
+    }
 
+    /**
+     * Getter of the start point of the matrix
+     * @return the point
+     */
+    const std::pair<int, int> &getP_start() const {
+        return p_start;
+    }
+
+    /**
+     * Getter of the goal point of the matrix
+     * @return the point
+     */
+    const std::pair<int, int> &getP_goal() const {
+        return p_goal;
+    }
+
+    /**
+     * Setter of point pairs according to data
+     */
     void setPointPairs() {
         std::vector<double> point_val = this->_data.back();
         int x = static_cast<int>(point_val[0]);
@@ -48,18 +65,36 @@ public:
         this->p_start.second = y;
     }
 
+    /**
+     * Operator & overloading
+     * @param p
+     * @return
+     */
     double &operator[](const Point &p) {
         return _data[p.first][p.second];
     }
 
+    /**
+     * Operator [] overloading
+     * @param p
+     * @return
+     */
     double operator[](const Point &p) const {
         return _data[p.first][p.second];
     }
 
+    /**
+     * Getter of the rows number
+     * @return
+     */
     int getRow() {
         return this->row;
     }
 
+    /**
+     * Getter of the columns number
+     * @return
+     */
     int getCol() {
         return this->col;
     }

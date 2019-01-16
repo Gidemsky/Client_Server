@@ -59,7 +59,6 @@ public:
                 }
             }
         }
-        cout << "Cost: " << save->getCost() << endl;
         return return_val = {save};
     }
 

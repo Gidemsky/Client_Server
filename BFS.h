@@ -46,7 +46,6 @@ public:
                     second_node->setCost(node->getCost() + second_node->getCost());
                     queue.push_back(second_node);
                 }
-
                 if (second_node->getState() == searchable->getGoalNode()) {
                     save = second_node;
                     return return_val = {save};
