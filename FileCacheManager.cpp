@@ -18,8 +18,13 @@ void FileCacheManager::save(Stringable *problem, Stringable *solution) {
     //if problem exists
     if (this->data.count(str_problem)) {
         this->data.at(str_problem) = str_solution;
-    } else
+    } else {
         this->data.insert(pair<string, string>(str_problem, str_solution));
+
+    }
+    delete problem;
+    delete solution;
+
 }
 
 bool FileCacheManager::isProblemExist(Stringable *problem) {
@@ -31,6 +36,7 @@ Stringable *FileCacheManager::search(Stringable *problem) {
     if (isProblemExist(problem)) {
         return new StringableMatrix(this->data.at(problem->makeString()));
     }
+    delete problem;
 }
 
 void FileCacheManager::loadToMap() {
