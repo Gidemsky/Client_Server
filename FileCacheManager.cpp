@@ -1,6 +1,3 @@
-//
-// Created by gideon on 15/01/19.
-//
 
 #include "FileCacheManager.h"
 #include "StringableMatrix.h"
@@ -20,11 +17,9 @@ void FileCacheManager::save(Stringable *problem, Stringable *solution) {
         this->data.at(str_problem) = str_solution;
     } else {
         this->data.insert(pair<string, string>(str_problem, str_solution));
-
     }
     delete problem;
     delete solution;
-
 }
 
 bool FileCacheManager::isProblemExist(Stringable *problem) {
@@ -79,4 +74,3 @@ void FileCacheManager::saveObjectInFile(string problem, string solution) {
     this->file << solution << endl;
     this->file << END_OF_SOLUTION << endl;
 }
-
