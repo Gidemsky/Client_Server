@@ -1,6 +1,3 @@
-//
-// Created by benda on 08/01/19.
-//
 
 #ifndef CLIENT_SERVER_FILECHACEMANAGER_H
 #define CLIENT_SERVER_FILECHACEMANAGER_H

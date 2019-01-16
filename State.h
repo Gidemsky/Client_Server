@@ -2,12 +2,12 @@
 #ifndef CLIENT_SERVER_STATE_H
 #define CLIENT_SERVER_STATE_H
 
-template <class Node>
+template<class Node>
 class State {
 private:
     Node node;
     double cost; // price of the node
-    State<Node>* come_from;
+    State<Node> *come_from;
     bool is_visited;
     double h_score; // heuristic
 
@@ -25,7 +25,7 @@ public:
      * @param state is the node
      * @param cost is the price
      */
-    State(Node state, double cost){
+    State(Node state, double cost) {
         this->node = state;
         this->is_visited = false;
         this->cost = cost;
@@ -36,7 +36,7 @@ public:
      * @param s is the state to check
      * @return true or false
      */
-    bool& operator==(const State<Node>& s){
+    bool &operator==(const State<Node> &s) {
         return (s.come_from == come_from && s.cost == cost && s.node == node);
     }
 
@@ -45,7 +45,7 @@ public:
      * @param s is the state to take the data
      * @return
      */
-    State<Node> & operator=(State<Node> s){
+    State<Node> &operator=(State<Node> s) {
         this->node = s.getState();
         this->cost = s.getCost();
         this->come_from = s.getComeFrom();
@@ -57,7 +57,7 @@ public:
      * Getter of the node of the state
      * @return the node
      */
-    Node getState() const{
+    Node getState() const {
         return node;
     }
 
@@ -65,7 +65,7 @@ public:
      * Setter of the node to the state
      * @param state is the state set
      */
-    void setState(Node state){
+    void setState(Node state) {
         this->node = state;
     }
 
@@ -73,7 +73,7 @@ public:
      * Getter of the state's price
      * @return the price
      */
-    double getCost() const{
+    double getCost() const {
         return cost;
     }
 
@@ -81,7 +81,7 @@ public:
      * Setter of the state's price
      * @param cost is the price to set
      */
-    void setCost(double cost){
+    void setCost(double cost) {
         this->cost = cost;
     }
 
@@ -89,7 +89,7 @@ public:
      * Getter of the come from of the state
      * @return the state
      */
-    State<Node>* getComeFrom() {
+    State<Node> *getComeFrom() {
         return this->come_from;
     }
 
@@ -97,7 +97,7 @@ public:
      * Setter of the come from of the state
      * @param come_from is the state to set as come from
      */
-    void setComeFrom(State<Node> *come_from){
+    void setComeFrom(State<Node> *come_from) {
         this->come_from = come_from;
     }
 
@@ -105,7 +105,7 @@ public:
      * Getter of is visited
      * @return true or false
      */
-    bool isVisited() const{
+    bool isVisited() const {
         return this->is_visited;
     }
 
@@ -113,7 +113,7 @@ public:
      * Setter of is visited
      * @param b is the bool to set
      */
-    void setVisited(bool b){
+    void setVisited(bool b) {
         this->is_visited = b;
     }
 
@@ -121,7 +121,7 @@ public:
      * Setter of the heuristic
      * @param goal
      */
-    void setHeuristic(State<Node>* goal) {
+    void setHeuristic(State<Node> *goal) {
         int x = abs(this->getState().first - goal->getState().first);
         int y = abs(this->getState().second - goal->getState().second);
         this->h_score = x + y;

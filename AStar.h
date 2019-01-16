@@ -13,6 +13,12 @@ template<class Node>
 class AStar : public ISearcher<Node> {
     class StateCompare {
     public:
+        /**
+         * Operator ()
+         * @param left
+         * @param right
+         * @return
+         */
         bool operator()(State<Node> *left, State<Node> *right) {
             return left->getCost() + left->getHeuristic() <
                    right->getCost() + right->getHeuristic();
@@ -43,15 +49,18 @@ std::vector<State<Node> *> AStar<Node>::search(Searchable<Node> *searchable) {
     State<Node> *initial_state = searchable->getInitialState();
     open.push_back(initial_state);
     while (open.size() > 0) {
+        // get the minimal element
         auto top_itr = min_element(open.begin(), open.end(), StateCompare());
         auto top = *top_itr;
         open.erase(top_itr);
         closed.push_back(top);
+        // if they're equal
         if (top->getState() == searchable->getGoalNode()) {
             return {top};
         }
         auto *mat = dynamic_cast<SearchableMatrix *>(searchable);
         this->count++;
+        // possible states
         for (State<Node> *&neighbor : mat->getAllPossibleStates(top, 3)) {
             neighbor->setComeFrom(top);
             neighbor->setCost(neighbor->getCost() + top->getCost());

@@ -8,7 +8,7 @@ using namespace std;
 
 class Stringable {
 public:
-    virtual string makeString()=0;
+    virtual string makeString() = 0;
 };
 
 #endif //CLIENT_SERVER_STRINGABLE_H

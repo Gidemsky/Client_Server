@@ -18,12 +18,14 @@
 #include <iostream>
 #include <netinet/in.h>
 
-class ParallelServer: public Server{
+class ParallelServer : public Server {
     int port{};
-    IClientHandler* clientHandler{};
+    IClientHandler *clientHandler{};
 public:
-    void open(int port, IClientHandler* clientHandler) override;
+    void open(int port, IClientHandler *clientHandler) override;
+
     static void start(int, IClientHandler *);
+
     bool stop() override;
 };
 

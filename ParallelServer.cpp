@@ -1,6 +1,3 @@
-//
-// Created by gideon on 09/01/19.
-//
 
 #include "ParallelServer.h"
 
@@ -11,6 +8,11 @@ struct thread_data {
     IClientHandler *ch;
 };
 
+/**
+ * open the server
+ * @param port
+ * @param clientHandler
+ */
 void ParallelServer::open(int port, IClientHandler *clientHandler) {
     this->port = port;
     this->clientHandler = clientHandler;
@@ -37,41 +39,48 @@ void ParallelServer::open(int port, IClientHandler *clientHandler) {
 }
 
 bool ParallelServer::stop() {
-    cout << "lalal" << endl;//TODO: check what needed to be in this function
 }
 
+/**
+ *
+ * @param params
+ * @return
+ */
 void *start_thread_client(void *params) {
     auto data = (thread_data *) params;
     data->ch->handleClient(data->sock);
     delete data;
 }
 
+/**
+ * starts the connection between the server and the client
+ * @param server_sock
+ * @param ch
+ */
 void ParallelServer::start(int server_sock, IClientHandler *ch) {
     stack<pthread_t> threads_stack;
     sockaddr_in address{};
     int addrlen = sizeof(address);
-
+    //defines the timeout
     timeval timeout;
-    timeout.tv_sec = 10;
-    timeout.tv_usec = 0;
-    setsockopt(server_sock, SOL_SOCKET, SO_RCVTIMEO, (char *) &timeout, sizeof(timeout));
+//    timeout.tv_sec = 10;
+//    timeout.tv_usec = 0;
+//    setsockopt(server_sock, SOL_SOCKET, SO_RCVTIMEO, (char *) &timeout, sizeof(timeout));
 
     int new_socket;
+    //runs the function and collects the client's problems using threads
     while (true) {
+        new_socket = accept(server_sock, (struct sockaddr *) &address, (socklen_t *) &addrlen);
         timeout.tv_sec = 10;
         timeout.tv_usec = 0;
         setsockopt(server_sock, SOL_SOCKET, SO_RCVTIMEO, (char *) &timeout, sizeof(timeout));
-        if ((new_socket = accept(server_sock,
-                                 (struct sockaddr *) &address,
-                                 (socklen_t *) &addrlen)) < 0) {
+        if (new_socket < 0) {
             if (errno == EWOULDBLOCK || errno == EAGAIN) {
-                cout << "timeout" << endl;
                 break;
             }
             perror("accept");
             exit(EXIT_FAILURE);
         }
-        cout<<"accept"<<endl;
         setsockopt(new_socket, SOL_SOCKET, SO_RCVTIMEO, (char *) &timeout, sizeof(timeout));
         auto data = new thread_data;
         data->ch = ch;
@@ -88,8 +97,6 @@ void ParallelServer::start(int server_sock, IClientHandler *ch) {
         pthread_join(threads_stack.top(), nullptr);
         threads_stack.pop();
     }
-    cout<<"check"<<endl;
-
 
     close(server_sock);
 }

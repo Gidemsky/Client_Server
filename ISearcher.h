@@ -1,6 +1,3 @@
-//
-// Created by gideon on 08/01/19.
-//
 
 #ifndef CLIENT_SERVER_SEARCHER_H
 #define CLIENT_SERVER_SEARCHER_H
@@ -9,10 +6,11 @@
 #include "State.h"
 #include "Stringable.h"
 
-template <class Node>
+template<class Node>
 class ISearcher {
 public:
-    virtual std::vector<State<Node>*> search (Searchable<Node>* searchable) = 0;
+    virtual std::vector<State<Node> *> search(Searchable<Node> *searchable) = 0;
+
     virtual int getNumberOfNodesEvaluated() = 0;
 };
 

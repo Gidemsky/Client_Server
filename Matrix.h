@@ -27,6 +27,7 @@ public:
      * Ctor
      */
     Matrix() {}
+
     const MatrixVec &get_data() const {
         return _data;
     }

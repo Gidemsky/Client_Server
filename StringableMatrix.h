@@ -7,7 +7,7 @@
 class StringableMatrix : public Stringable {
     string mat_data;
 public:
-    explicit StringableMatrix(string mat_data);//added explicit
+    explicit StringableMatrix(string mat_data);
     string makeString() override;
 };
 

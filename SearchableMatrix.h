@@ -4,18 +4,21 @@
 
 #include "Matrix.h"
 #include "Searchable.h"
+#include <algorithm>
+#include <string>
+#include <list>
 
 using namespace std;
 
 class SearchableMatrix : public Searchable<std::pair<int, int>> {
     using Point = std::pair<int, int>;
     Matrix matrix;
-    State<Point>* initial_state;
+    State<Point> *initial_state;
     Point entry_point;
     Point exit_point;
     std::vector<Point> created_point;
-    State<Point>* goal_state;
-    vector<State<Point>*> states;
+    State<Point> *goal_state;
+    vector<State<Point> *> states;
 
 public:
     /**
@@ -37,7 +40,7 @@ public:
      * Getter of the initial state
      * @return the initial state
      */
-    State<Point>* getInitialState() const override {
+    State<Point> *getInitialState() const override {
         this->initial_state->setCost(matrix[entry_point]);
         this->initial_state->setState(entry_point);
         this->initial_state->setVisited(true);//TODO: check if needed
@@ -49,7 +52,7 @@ public:
      * Getter of the goal state
      * @return the goal state
      */
-    State<Point>* getGoalState() const override {
+    State<Point> *getGoalState() const override {
         this->goal_state->setCost(matrix[exit_point]);
         this->goal_state->setState(exit_point);
         this->goal_state->setVisited(false);
@@ -79,7 +82,7 @@ public:
      * @param p is the point
      * @return true or false
      */
-    bool check_bounds(Point p)  {
+    bool check_bounds(Point p) {
         return p.first >= 0 && p.second >= 0 && p.first < matrix.getRow() && p.second < matrix.getCol();
     }
 
@@ -88,18 +91,20 @@ public:
      * @param mat_state is the state to find his possible states.
      * @return vector of all the possible states.
      */
-    vector<State<Point> *> getAllPossibleStates(State<Point> *mat_state, int)
-    {
+    vector<State<Point> *> getAllPossibleStates(State<Point> *mat_state, int) {
         vector<State<Point> *> pos_states;
         Point possible_point = mat_state->getState();
         // the state location
         // the matrix bounds
         // if it is possible to return current y position on the above row
-        list<Point> directions = {{0,1}, {1,0}, {-1,0}, {0,-1}};
-        for (auto& pnt : directions)    {
-            Point p = {possible_point.first + pnt.first, possible_point.second+pnt.second};
-            if (check_bounds(p) && matrix[p] != -1)    {
-                State<Point>* state =  new State<Point>(p, matrix[p]);
+        list<Point> directions = {{0,  1},
+                                  {1,  0},
+                                  {-1, 0},
+                                  {0,  -1}};
+        for (auto &pnt : directions) {
+            Point p = {possible_point.first + pnt.first, possible_point.second + pnt.second};
+            if (check_bounds(p) && matrix[p] != -1) {
+                State<Point> *state = new State<Point>(p, matrix[p]);
                 state->setHeuristic(this->getGoalState());
                 pos_states.push_back(state);
                 this->states.push_back(state);
@@ -127,7 +132,7 @@ public:
         // if it is possible to return current y position on the above row
         if (x_pos > 0) {
             possible_point = Point(x_pos - 1, y_pos);
-            if (std::find(this->created_point.begin(), this->created_point.end(), possible_point) ==
+            if (find(this->created_point.begin(), this->created_point.end(), possible_point) ==
                 this->created_point.end()) {
                 if (matrix[possible_point] >= 0) {
                     state = new State<Point>(possible_point, this->matrix[possible_point]);
@@ -140,7 +145,7 @@ public:
         // next row
         if (x_pos < last_x_pos) {
             possible_point = Point(x_pos + 1, y_pos);
-            if (std::find(this->created_point.begin(), this->created_point.end(), possible_point) ==
+            if (find(this->created_point.begin(), this->created_point.end(), possible_point) ==
                 this->created_point.end()) {
                 if (matrix[possible_point] >= 0) {
                     state = new State<Point>(possible_point, this->matrix[possible_point]);
@@ -153,7 +158,7 @@ public:
         // prev col
         if (y_pos > 0) {
             possible_point = Point(x_pos, y_pos - 1);
-            if (std::find(this->created_point.begin(), this->created_point.end(), possible_point) ==
+            if (find(this->created_point.begin(), this->created_point.end(), possible_point) ==
                 this->created_point.end()) {
                 if (matrix[possible_point] >= 0) {
                     state = new State<Point>(possible_point, this->matrix[possible_point]);
@@ -166,7 +171,7 @@ public:
         // next col
         if (y_pos < last_y_pos) {
             possible_point = Point(x_pos, y_pos + 1);
-            if (std::find(this->created_point.begin(), this->created_point.end(), possible_point) ==
+            if (find(this->created_point.begin(), this->created_point.end(), possible_point) ==
                 this->created_point.end()) {
                 if (matrix[possible_point] >= 0) {
                     state = new State<Point>(possible_point, this->matrix[possible_point]);
