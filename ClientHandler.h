@@ -1,6 +1,3 @@
-//
-// Created by gideon on 08/01/19.
-//
 
 #ifndef CLIENT_SERVER_MYCLIENTHANDLER_H
 #define CLIENT_SERVER_MYCLIENTHANDLER_H
@@ -15,7 +12,6 @@
 using Point = std::pair<int, int>;
 
 class ClientHandler : public IClientHandler {
-
     Solver<Searchable<Point>*, Stringable*> *solver;
     ICacheManager<Stringable, Stringable> *cacheManager;
 public:
