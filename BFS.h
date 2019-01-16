@@ -15,7 +15,6 @@ class BFS : public ISearcher<Node> {
     int count = 0;
 
 public:
-
     /**
      * The algorithm
      * @param searchable
@@ -44,6 +43,7 @@ public:
                 if (!second_node->isVisited()) {
                     second_node->setVisited(true);
                     second_node->setComeFrom(node);
+                    second_node->setCost(node->getCost() + second_node->getCost());
                     queue.push_back(second_node);
                 }
 

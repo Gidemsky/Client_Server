@@ -49,6 +49,7 @@ public:
                 second_node = possible_states[i];
                 if (!second_node->isVisited()) {
                     second_node->setComeFrom(node);
+                    second_node->setCost(node->getCost() + second_node->getCost());
                     stack.push(second_node);
                 }
 
@@ -58,6 +59,7 @@ public:
                 }
             }
         }
+        cout << "Cost: " << save->getCost() << endl;
         return return_val = {save};
     }
 
